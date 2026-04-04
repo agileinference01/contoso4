@@ -42,6 +42,20 @@
               },
               "queryRef": "_Measures.0012_Selected Measure Current Period",
               "nativeQueryRef": "0012_Selected Measure Current Period"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0016_Selected Measure Pct To Goal Current Period"
+                }
+              },
+              "queryRef": "_Measures.0016_Selected Measure Pct To Goal Current Period",
+              "nativeQueryRef": "0016_Selected Measure Pct To Goal Current Period"
             }
           ]
         }

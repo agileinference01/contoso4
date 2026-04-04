@@ -451,7 +451,7 @@ table _Measures
 		displayFolder: _Non Measures
 		lineageTag: 6871146c-cffc-4c99-bc9d-08de485d3eca
 
-	measure '0009_Selected Measure Goal' = ```
+	measure '0014_Selected Measure Goal' = ```
 			
 			
 			var _sel = SELECTEDVALUE('_MeasureCatalog'[Metric Name])
@@ -469,6 +469,30 @@ table _Measures
 		lineageTag: 374abe61-1e12-4737-bcf1-0855b17273e6
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '0015_Selected Measure Goal Current Period' =
+			
+			VAR _max = max(DimCalendar[DateKey])
+			VAR _min = [0004_Min Date Curent Period]
+			RETURN
+			CALCULATE([0014_Selected Measure Goal], DimCalendar[DateKey]>=_min && DimCalendar[DateKey]<=_max)
+		displayFolder: _Non Measures
+		lineageTag: ac7bdbda-62e0-4c93-ad0e-8c9d33b25ccc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '0016_Selected Measure Pct To Goal Current Period' =
+			
+			VAR _max = max(DimCalendar[DateKey])
+			VAR _min = [0004_Min Date Curent Period]
+			var _actual = [0012_Selected Measure Current Period]
+			var _goal = [0015_Selected Measure Goal Current Period]
+			var _sel = SELECTEDVALUE(_MeasureCatalog[Metric Name])
+			RETURN
+			ActualPctToGoal(_actual, _goal)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: _Non Measures
+		lineageTag: b9d15a2f-5d31-4cdb-b4a3-3f4678fa9628
 
 	partition _Measures = m
 		mode: import
