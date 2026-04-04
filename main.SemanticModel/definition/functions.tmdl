@@ -13,3 +13,11 @@ function GetWeekStart =
 				_date - WEEKDAY(_date,2) + 1
 	lineageTag: 30ed14b6-6aaa-4ef7-8684-b1a5e96d092e
 
+function GetMeasureDirectionm =
+		(_measure : STRING) =>
+				CALCULATE(
+					FIRSTNONBLANK(_MeasureCatalog[Direction], 1),
+					FILTER(_MeasureCatalog, _MeasureCatalog[Metric Name]=_measure)
+				)
+	lineageTag: a5fed73e-033f-4e87-ae90-e2a5b8bccbe4
+

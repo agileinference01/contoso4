@@ -7,3 +7,11 @@ DEFINE
 
 	FUNCTION GetWeekStart = (_date : DATETIME) =>
 		_date - WEEKDAY(_date,2) + 1
+
+	FUNCTION GetMeasureDirectionm = (_measure : STRING) =>
+		CALCULATE(
+			FIRSTNONBLANK(_MeasureCatalog[Direction], 1),
+			FILTER(_MeasureCatalog, _MeasureCatalog[Metric Name]=_measure)
+		)
+
+	
