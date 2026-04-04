@@ -1,0 +1,82 @@
+table DimEntity
+	lineageTag: 4034bfb6-f43a-439c-b208-412cc55f5f5d
+
+	column EntityKey
+		dataType: int64
+		formatString: 0
+		lineageTag: af7f1f1e-c831-4010-870c-a933ee5ffcf2
+		summarizeBy: none
+		sourceColumn: EntityKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParentEntityKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 3aaf0b08-e3f3-4e33-9781-d31794381d57
+		summarizeBy: none
+		sourceColumn: ParentEntityKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParentEntityLabel
+		dataType: string
+		lineageTag: d6a2d703-5da7-4ebc-9367-775a373748c6
+		summarizeBy: none
+		sourceColumn: ParentEntityLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column EntityName
+		dataType: string
+		lineageTag: 8391ab50-a3af-432b-a75e-517fae307c41
+		summarizeBy: none
+		sourceColumn: EntityName
+
+		annotation SummarizationSetBy = Automatic
+
+	column EntityDescription
+		dataType: string
+		lineageTag: 4db3f859-044f-4aa6-880a-2b166cac4d46
+		summarizeBy: none
+		sourceColumn: EntityDescription
+
+		annotation SummarizationSetBy = Automatic
+
+	column EntityType
+		dataType: string
+		lineageTag: f2d7212d-c4da-47f2-9ef2-e223b46aabd8
+		summarizeBy: none
+		sourceColumn: EntityType
+
+		annotation SummarizationSetBy = Automatic
+
+	column StartDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 75e1018f-8b3c-47f7-b78d-3bce98ef0c3e
+		summarizeBy: none
+		sourceColumn: StartDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: 574ae78d-d034-4b78-bf8a-b2e3281482e7
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimEntity = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\DimEntity.csv"),[Delimiter=",", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"EntityKey", Int64.Type}, {"ParentEntityKey", Int64.Type}, {"ParentEntityLabel", type text}, {"EntityName", type text}, {"EntityDescription", type text}, {"EntityType", type text}, {"StartDate", type datetime}, {"Status", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

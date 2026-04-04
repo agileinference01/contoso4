@@ -1,0 +1,40 @@
+Measure Name,Type,Format String,Description
+Total Sales,Number,$#,0.00,Total sales revenue from all channels
+Total Cost,Number,$#,0.00,Total cost of goods sold
+Gross Profit,Number,$#,0.00,Gross profit (Revenue - COGS)
+Gross Profit Margin %,Ratio/Percentage,0.00%,Gross profit margin percentage
+Total Units Sold,Number,#,0,Total units sold across all channels
+Total Discounts,Number,$#,0.00,Total discount amount given
+Discount Rate %,Ratio/Percentage,0.00%,Discount as percentage of total sales
+Total Returns,Number,$#,0.00,Total return amount
+Return Rate %,Ratio/Percentage,0.00%,Return rate as percentage of sales
+Store Sales,Number,$#,0.00,In-store sales revenue
+Online Sales,Number,$#,0.00,Online sales revenue
+Online Sales %,Ratio/Percentage,0.00%,Online sales as percentage of total sales
+Store Units Sold,Number,#,0,Units sold in stores
+Online Units Sold,Number,#,0,Units sold online
+Average Transaction Value,Number,$#,0.00,Average value per transaction
+Number of Customers,Number,#,0,Total number of unique customers
+Customer Lifetime Value,Number,$#,0.00,Average sales per customer
+Store Count,Number,#,0,Total number of stores
+Average Sales per Store,Number,$#,0.00,Average store sales
+Product Count,Number,#,0,Total number of products sold
+Sales Quota,Number,$#,0.00,Total sales quota amount
+Sales Variance,Number,$#,0.00,Actual sales vs quota
+Sales Variance %,Ratio/Percentage,0.00%,Sales variance as percentage
+Sales Achievement %,Ratio/Percentage,0.00%,Percentage of sales quota achieved
+Quantity Quota,Number,#,0,Total quantity quota
+Quantity Variance,Number,#,0,Actual units vs quantity quota
+Quantity Variance %,Ratio/Percentage,0.00%,Quantity variance percentage
+Gross Margin Quota,Number,$#,0.00,Total gross margin quota
+Strategy Plan Amount,Number,$#,0.00,Strategic plan amount
+Strategy Plan Variance,Number,$#,0.00,Budget vs actual from strategy plan
+Machine Maintenance Cost,Number,$#,0.00,Total machine maintenance cost
+Planned Downtime Cost,Number,$#,0.00,Total planned downtime cost
+Preventive Maintenance Cost,Number,$#,0.00,Preventive maintenance cost
+Emergency Maintenance Cost,Number,$#,0.00,Unplanned downtime cost
+Total Machine Downtime (Hours),Number,#,0,Total machine downtime in hours
+Machines with Downtime,Number,#,0,Number of machines with downtime
+Average Downtime per Machine,Number,#,0.00,Average downtime per machine
+Number of Outages,Number,#,0,Number of outage incidents
+Maintenance Cost per Store,Number,$#,0.00,Maintenance cost per store

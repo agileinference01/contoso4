@@ -1,0 +1,208 @@
+table FactOnlineSales
+	excludeFromModelRefresh
+	lineageTag: 929dc686-2eb6-4b1d-ba4b-d8b126902237
+
+	column OnlineSalesKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e3b448d8-c978-4ebb-97ce-d06bc8ffdea9
+		summarizeBy: count
+		sourceColumn: OnlineSalesKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: bff68a16-216b-4213-9ed5-242ff08518e5
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column StoreKey
+		dataType: int64
+		formatString: 0
+		lineageTag: b60dc437-2352-4a23-b61f-fdf0c3aa6460
+		summarizeBy: count
+		sourceColumn: StoreKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 9f16e5ec-5dbc-4992-95c9-0ffb2ba36a26
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromotionKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 24406b7b-8a0a-44d6-a3f9-07ee8b112815
+		summarizeBy: none
+		sourceColumn: PromotionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrencyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 51d0f548-87a4-40fe-999f-31765cb77ef7
+		summarizeBy: none
+		sourceColumn: CurrencyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 0de8bfa7-f7a3-400d-9a4c-b71ed8059558
+		summarizeBy: none
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesOrderNumber
+		dataType: string
+		lineageTag: c41a374c-a7ab-49a1-9d72-578da6aab706
+		summarizeBy: none
+		sourceColumn: SalesOrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesOrderLineNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 1cedc965-63aa-4a74-bdb4-b0fd05902fce
+		summarizeBy: sum
+		sourceColumn: SalesOrderLineNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 68a39acd-7e1a-4b4e-9782-6c1c77bdeff4
+		summarizeBy: sum
+		sourceColumn: SalesQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesAmount
+		dataType: double
+		lineageTag: 915b8030-ddd6-4767-9429-1f30dfa195e6
+		summarizeBy: sum
+		sourceColumn: SalesAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ReturnQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 4499fea4-6432-47ce-bb6c-544c97e516c6
+		summarizeBy: sum
+		sourceColumn: ReturnQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnAmount
+		dataType: double
+		lineageTag: fc518e1b-0be8-49d7-ab57-50f757cb9c55
+		summarizeBy: sum
+		sourceColumn: ReturnAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DiscountQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 6373f8aa-6f37-4cdf-b5f0-2fb3abf3054a
+		summarizeBy: sum
+		sourceColumn: DiscountQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiscountAmount
+		dataType: double
+		lineageTag: 912794c2-d8c3-4967-9f93-2f7fac18bb00
+		summarizeBy: sum
+		sourceColumn: DiscountAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalCost
+		dataType: double
+		lineageTag: e210c1b0-1164-43cd-b136-eb367bfb0303
+		summarizeBy: sum
+		sourceColumn: TotalCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitCost
+		dataType: double
+		lineageTag: b7d6bfa0-02e4-4657-9b5d-06c6f62a3984
+		summarizeBy: sum
+		sourceColumn: UnitCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitPrice
+		dataType: double
+		lineageTag: 0b2ad7b1-b8e5-43a2-a539-9eb1155bb845
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column channelKey
+		dataType: int64
+		formatString: 0
+		lineageTag: dce54600-6568-41cf-8ae5-ebd4effe21df
+		summarizeBy: count
+		sourceColumn: channelKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d8c77c2-1f36-4e12-9386-41a7d0add2f5
+		summarizeBy: count
+		sourceColumn: SalesKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactOnlineSales = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\FactOnlineSales.csv"),[Delimiter=",", Columns=18, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"OnlineSalesKey", Int64.Type}, {"DateKey", type date}, {"StoreKey", Int64.Type}, {"ProductKey", Int64.Type}, {"PromotionKey", Int64.Type}, {"CurrencyKey", Int64.Type}, {"CustomerKey", Int64.Type}, {"SalesOrderNumber", type text}, {"SalesOrderLineNumber", Int64.Type}, {"SalesQuantity", Int64.Type}, {"SalesAmount", type number}, {"ReturnQuantity", Int64.Type}, {"ReturnAmount", type number}, {"DiscountQuantity", Int64.Type}, {"DiscountAmount", type number}, {"TotalCost", type number}, {"UnitCost", type number}, {"UnitPrice", type number}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type", "channelKey", each 2),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom", "SalesKey", each null),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom1",{{"SalesKey", Int64.Type}, {"channelKey", Int64.Type}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

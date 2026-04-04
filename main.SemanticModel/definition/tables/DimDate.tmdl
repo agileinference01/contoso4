@@ -1,0 +1,215 @@
+table DimDate
+	lineageTag: bd1799fc-084e-4fab-893c-ab98f5bfb3ec
+	dataCategory: Time
+
+	column DateKey
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: b10f1ba0-0eb0-4802-b1a7-13e5bf2402e9
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CalendarYear
+		dataType: int64
+		formatString: 0
+		lineageTag: d9fbea1c-6cc7-4c0f-ac95-42568e93b8a1
+		summarizeBy: sum
+		sourceColumn: CalendarYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarYearLabel
+		dataType: string
+		lineageTag: 07712020-d81b-47d3-bee4-a598a9ceb37f
+		summarizeBy: none
+		sourceColumn: CalendarYearLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarHalfYearLabel
+		dataType: string
+		lineageTag: 55874017-90dd-45bf-bfc6-94fc258ff3a7
+		summarizeBy: none
+		sourceColumn: CalendarHalfYearLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarQuarterLabel
+		dataType: string
+		lineageTag: 2d71c45f-cf7b-48a5-b729-af4cfde07ed3
+		summarizeBy: none
+		sourceColumn: CalendarQuarterLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarMonthLabel
+		dataType: string
+		lineageTag: 3d3c3723-fbc9-42a3-9a13-76fa43332991
+		summarizeBy: none
+		sourceColumn: CalendarMonthLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarWeekLabel
+		dataType: string
+		lineageTag: e0955264-a590-4f05-9cc3-67e576a8ba4b
+		summarizeBy: none
+		sourceColumn: CalendarWeekLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarDayOfWeekLabel
+		dataType: string
+		lineageTag: 05d3149e-4a6b-476b-b393-c44a464ff3f7
+		summarizeBy: none
+		sourceColumn: CalendarDayOfWeekLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalYear
+		dataType: int64
+		formatString: 0
+		lineageTag: a69cd6c2-a8c1-4335-a4b3-0ee73a4a44e1
+		summarizeBy: sum
+		sourceColumn: FiscalYear
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalYearLabel
+		dataType: string
+		lineageTag: 6df247c0-5928-4914-858b-a0b731337441
+		summarizeBy: none
+		sourceColumn: FiscalYearLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalHalfYearLabel
+		dataType: string
+		lineageTag: 5ab11f8a-5e52-4e7b-b846-ef145f0376d5
+		summarizeBy: none
+		sourceColumn: FiscalHalfYearLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalQuarterLabel
+		dataType: string
+		lineageTag: 54149026-372b-4eb7-80b1-67af6694b07d
+		summarizeBy: none
+		sourceColumn: FiscalQuarterLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalMonthLabel
+		dataType: string
+		lineageTag: 54eab4cc-408a-47d4-8b81-93692e32a009
+		summarizeBy: none
+		sourceColumn: FiscalMonthLabel
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsWorkDay
+		dataType: string
+		lineageTag: 7cadf0ee-8fc0-4ac3-95cb-cbc225c8081a
+		summarizeBy: none
+		sourceColumn: IsWorkDay
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsHoliday
+		dataType: string
+		lineageTag: 463436f3-b0c0-49d8-a575-83b564a66538
+		summarizeBy: none
+		sourceColumn: IsHoliday
+
+		annotation SummarizationSetBy = Automatic
+
+	column EuropeSeason
+		dataType: string
+		lineageTag: f161a645-5844-4d01-b7e7-8d1001200b7d
+		summarizeBy: none
+		sourceColumn: EuropeSeason
+
+		annotation SummarizationSetBy = Automatic
+
+	column NorthAmericaSeason
+		dataType: string
+		lineageTag: 7d51215e-7a79-4bad-b59f-d6dca05898b5
+		summarizeBy: none
+		sourceColumn: NorthAmericaSeason
+
+		annotation SummarizationSetBy = Automatic
+
+	column AsiaSeason
+		dataType: string
+		lineageTag: 3eecfefe-e68d-49a2-af36-2a3e6f794166
+		summarizeBy: none
+		sourceColumn: AsiaSeason
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 8d0caac8-9828-44a4-9ce2-e1c9180ba5ef
+		summarizeBy: sum
+		sourceColumn: MonthNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarDayOfWeekNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 08b12097-07c6-499e-ae70-7fa0e1a2e631
+		summarizeBy: sum
+		sourceColumn: CalendarDayOfWeekNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Interval Week Label' = DimDate[DateKey]-WEEKDAY(DimDate[DateKey],2) + 1
+		formatString: General Date
+		lineageTag: 954bb660-a6a0-4ce0-9dda-b02e0a8a7f36
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Interval Month Label' = FORMAT(DimDate[DateKey], "MMM-yyyy")
+		lineageTag: e65026c9-a41b-4781-baad-d9578fc370cd
+		summarizeBy: none
+		sortByColumn: 'Month Sort Order'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Interval Quarter Label' = DimDate[CalendarQuarterLabel] & "-" & year(DimDate[DateKey])
+		lineageTag: 9a9215bc-94cc-4611-9cdd-7176ab3e59f5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Sort Order' = (100 * year(DimDate[DateKey])) + month(DimDate[DateKey])
+		formatString: 0
+		lineageTag: e9c7dea3-b782-468e-9413-b7f156c9e87e
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimDate = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\DimDate.csv"),[Delimiter=",", Columns=20, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DateKey", type date}, {"CalendarYear", Int64.Type}, {"CalendarYearLabel", type text}, {"CalendarHalfYearLabel", type text}, {"CalendarQuarterLabel", type text}, {"CalendarMonthLabel", type text}, {"CalendarWeekLabel", type text}, {"CalendarDayOfWeekLabel", type text}, {"FiscalYear", Int64.Type}, {"FiscalYearLabel", type text}, {"FiscalHalfYearLabel", type text}, {"FiscalQuarterLabel", type text}, {"FiscalMonthLabel", type text}, {"IsWorkDay", type text}, {"IsHoliday", type text}, {"EuropeSeason", type text}, {"NorthAmericaSeason", type text}, {"AsiaSeason", type text}, {"MonthNumber", Int64.Type}, {"CalendarDayOfWeekNumber", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

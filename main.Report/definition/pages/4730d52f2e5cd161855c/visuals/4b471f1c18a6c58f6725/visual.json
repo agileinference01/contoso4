@@ -1,0 +1,95 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "4b471f1c18a6c58f6725",
+  "position": {
+    "x": 94.883720930232556,
+    "y": 200,
+    "z": 5011,
+    "height": 116.27906976744187,
+    "width": 260.46511627906978,
+    "tabOrder": 22
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0012_Selected Measure Current Period"
+                }
+              },
+              "queryRef": "_Measures.0012_Selected Measure Current Period",
+              "nativeQueryRef": "0012_Selected Measure Current Period"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "_Measures"
+                  }
+                },
+                "Property": "0012_Selected Measure Current Period"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "value": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.0012_Selected Measure Current Period"
+          }
+        }
+      ],
+      "label": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0011_Current Period Interval Label"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Measures.0012_Selected Measure Current Period"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

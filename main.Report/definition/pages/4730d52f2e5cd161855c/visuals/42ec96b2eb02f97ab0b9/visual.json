@@ -1,0 +1,123 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "42ec96b2eb02f97ab0b9",
+  "position": {
+    "x": 920,
+    "y": 392.55813953488376,
+    "z": 5014,
+    "height": 266.97674418604652,
+    "width": 347.90697674418607,
+    "tabOrder": 25
+  },
+  "visual": {
+    "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0003_Min Date"
+                }
+              },
+              "queryRef": "_Measures.0003_Min Date",
+              "nativeQueryRef": "0003_Min Date"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0002_Max Date"
+                }
+              },
+              "queryRef": "_Measures.0002_Max Date",
+              "nativeQueryRef": "0002_Max Date"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0008_Selected Date Check"
+                }
+              },
+              "queryRef": "_Measures.0008_Selected Date Check",
+              "nativeQueryRef": "0008_Selected Date Check"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0004_Min Date Curent Period"
+                }
+              },
+              "queryRef": "_Measures.0004_Min Date Current Period",
+              "nativeQueryRef": "0004_Min Date Curent Period"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0005_Min Date Previous Period"
+                }
+              },
+              "queryRef": "_Measures.0005_Min Date Previous Period",
+              "nativeQueryRef": "0005_Min Date Previous Period"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0006_Max Date Previous Period"
+                }
+              },
+              "queryRef": "_Measures.0006_Max Date Previous Period",
+              "nativeQueryRef": "0006_Max Date Previous Period"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "valuesOnRow": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

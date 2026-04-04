@@ -1,0 +1,198 @@
+table DimEmployee
+	lineageTag: 8ad72376-86ff-40ea-9432-c43f711c09cf
+
+	column EmployeeKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 050d0dcd-e3c2-47af-931d-9a2ee47c064c
+		summarizeBy: none
+		sourceColumn: EmployeeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParentEmployeeKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 259673ea-42bd-4308-a89a-606ba4e0dac7
+		summarizeBy: none
+		sourceColumn: ParentEmployeeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column FirstName
+		dataType: string
+		lineageTag: 482a0afe-fb20-431f-881e-57fb6129055c
+		summarizeBy: none
+		sourceColumn: FirstName
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastName
+		dataType: string
+		lineageTag: eb012731-0d33-4804-9671-1c5bf928fbef
+		summarizeBy: none
+		sourceColumn: LastName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Title
+		dataType: string
+		lineageTag: 9021356e-1ea9-4887-92a5-07b5de0f7f23
+		summarizeBy: none
+		sourceColumn: Title
+
+		annotation SummarizationSetBy = Automatic
+
+	column HireDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0ed06676-5adb-4437-a3b7-29ac0bff5a47
+		summarizeBy: none
+		sourceColumn: HireDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column BirthDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: be16c1e2-7a4d-4af8-9649-1d5a55417361
+		summarizeBy: none
+		sourceColumn: BirthDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column EmailAddress
+		dataType: string
+		lineageTag: 88568413-2550-4be0-9a5d-d5fa448094f5
+		summarizeBy: none
+		sourceColumn: EmailAddress
+
+		annotation SummarizationSetBy = Automatic
+
+	column Phone
+		dataType: string
+		lineageTag: fca40ae5-48d9-498a-80d4-a63f954d8b05
+		summarizeBy: none
+		sourceColumn: Phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmergencyContactName
+		dataType: string
+		lineageTag: cc7a0d5d-1e6e-4208-b982-27c0a3077273
+		summarizeBy: none
+		sourceColumn: EmergencyContactName
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmergencyContactPhone
+		dataType: string
+		lineageTag: a5538942-0324-48a3-b28c-4a5d31a80724
+		summarizeBy: none
+		sourceColumn: EmergencyContactPhone
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gender
+		dataType: string
+		lineageTag: 7c399ab7-23f8-412b-97b8-f6da3b896443
+		summarizeBy: none
+		sourceColumn: Gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column PayFrequency
+		dataType: int64
+		formatString: 0
+		lineageTag: c0692f70-67f5-4db6-9a58-e77095dbf25a
+		summarizeBy: none
+		sourceColumn: PayFrequency
+
+		annotation SummarizationSetBy = Automatic
+
+	column BaseRate
+		dataType: double
+		lineageTag: 157a43f5-221a-4f60-bb02-93bbb79c3cc6
+		summarizeBy: none
+		sourceColumn: BaseRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column VacationHours
+		dataType: int64
+		formatString: 0
+		lineageTag: 3a7e784c-940e-41d6-b0de-6a28c36a2420
+		summarizeBy: none
+		sourceColumn: VacationHours
+
+		annotation SummarizationSetBy = Automatic
+
+	column DepartmentName
+		dataType: string
+		lineageTag: e5ea7fb8-942e-4c81-a2a0-644c592fde1f
+		summarizeBy: none
+		sourceColumn: DepartmentName
+
+		annotation SummarizationSetBy = Automatic
+
+	column StartDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 07703559-0b31-4b25-ab87-bd09aadbcd3d
+		summarizeBy: none
+		sourceColumn: StartDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Status
+		dataType: string
+		lineageTag: ac1197b7-a6ef-48b4-aacb-635c9cd99ee2
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalaryStatus
+		dataType: string
+		lineageTag: 07f1e019-d0e3-45de-a6d4-e69b6552263d
+		summarizeBy: none
+		sourceColumn: SalaryStatus
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsSalesPerson
+		dataType: string
+		lineageTag: 8457816f-7a06-4d3e-9d78-5a16da1c90ea
+		summarizeBy: none
+		sourceColumn: IsSalesPerson
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsMarried
+		dataType: string
+		lineageTag: c4a7403f-a80a-438d-a82a-54ecf221e877
+		summarizeBy: none
+		sourceColumn: IsMarried
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimEmployee = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\DimEmployee.csv"),[Delimiter=",", Columns=21, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"EmployeeKey", Int64.Type}, {"ParentEmployeeKey", Int64.Type}, {"FirstName", type text}, {"LastName", type text}, {"Title", type text}, {"HireDate", type date}, {"BirthDate", type date}, {"EmailAddress", type text}, {"Phone", type text}, {"EmergencyContactName", type text}, {"EmergencyContactPhone", type text}, {"Gender", type text}, {"PayFrequency", Int64.Type}, {"BaseRate", type number}, {"VacationHours", Int64.Type}, {"DepartmentName", type text}, {"StartDate", type date}, {"Status", type text}, {"SalaryStatus", type text}, {"IsSalesPerson", type text}, {"IsMarried", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

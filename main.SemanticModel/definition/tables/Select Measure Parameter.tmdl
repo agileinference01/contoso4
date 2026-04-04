@@ -1,0 +1,92 @@
+table 'Select Measure Parameter'
+	lineageTag: 03374739-fd29-42c9-8929-cb4c81b53328
+
+	column 'Select Measure Parameter'
+		lineageTag: a2aa2a39-a9cc-4cf5-8e96-7ac07274b513
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Select Measure Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Select Measure Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Select Measure Parameter Fields'
+		isHidden
+		lineageTag: 1c114bb1-bb85-41e4-aa3f-4d5054644505
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Select Measure Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Select Measure Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: b93d7d21-8a03-44cd-88fe-1ff5b68c79c2
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Select Measure Parameter' = calculated
+		mode: import
+		source =
+				{
+				    ("0600_Customers - Unique", NAMEOF('_Measures'[0600_Customers - Unique]), 0),
+				    ("0602_Customer Lifetime Value", NAMEOF('_Measures'[0602_Customer Lifetime Value]), 1),
+				    ("0500_Discounts - Total", NAMEOF('_Measures'[0500_Discounts - Total]), 2),
+				    ("0501_Discount Rate % of Sales", NAMEOF('_Measures'[0501_Discount Rate % of Sales]), 3),
+				    ("0300_Gross Profit - Actual", NAMEOF('_Measures'[0300_Gross Profit - Actual]), 4),
+				    ("0301_Gross Profit - Goal", NAMEOF('_Measures'[0301_Gross Profit - Goal]), 5),
+				    ("0302_Gross Profit - Goal Achievement %", NAMEOF('_Measures'[0302_Gross Profit - Goal Achievement %]), 6),
+				    ("0303_Gross Margin %", NAMEOF('_Measures'[0303_Gross Margin %]), 7),
+				    ("0900_HR - Employees Total", NAMEOF('_Measures'[0900_HR - Employees Total]), 8),
+				    ("0901_HR - Headcount per Store", NAMEOF('_Measures'[0901_HR - Headcount per Store]), 9),
+				    ("0902_HR - Sales per Employee", NAMEOF('_Measures'[0902_HR - Sales per Employee]), 10),
+				    ("0903_HR - Units per Employee", NAMEOF('_Measures'[0903_HR - Units per Employee]), 11),
+				    ("0904_HR - Productivity Score", NAMEOF('_Measures'[0904_HR - Productivity Score]), 12),
+				    ("0700_Machine - Total Downtime (Hours)", NAMEOF('_Measures'[0700_Machine - Total Downtime (Hours)]), 13),
+				    ("0701_Machine - Count with Downtime", NAMEOF('_Measures'[0701_Machine - Count with Downtime]), 14),
+				    ("0702_Machine - Avg Downtime per Machine", NAMEOF('_Measures'[0702_Machine - Avg Downtime per Machine]), 15),
+				    ("0703_Machine - Outage Incidents", NAMEOF('_Measures'[0703_Machine - Outage Incidents]), 16),
+				    ("0704_Machine - Total Maintenance Cost", NAMEOF('_Measures'[0704_Machine - Total Maintenance Cost]), 17),
+				    ("0800_Machine - Preventive Maintenance Cost", NAMEOF('_Measures'[0800_Machine - Preventive Maintenance Cost]), 18),
+				    ("0801_Machine - Emergency Maintenance Cost", NAMEOF('_Measures'[0801_Machine - Emergency Maintenance Cost]), 19),
+				    ("0802_Machine - Preventive % of Total Cost", NAMEOF('_Measures'[0802_Machine - Preventive % of Total Cost]), 20),
+				    ("0803_Machine - Emergency % of Total Cost", NAMEOF('_Measures'[0803_Machine - Emergency % of Total Cost]), 21),
+				    ("0804_Machine - Cost per Store", NAMEOF('_Measures'[0804_Machine - Cost per Store]), 22),
+				    ("0805_Machine - SLA Uptime Goal %", NAMEOF('_Measures'[0805_Machine - SLA Uptime Goal %]), 23),
+				    ("0806_Machine - Actual Uptime %", NAMEOF('_Measures'[0806_Machine - Actual Uptime %]), 24),
+				    ("0807_Machine - SLA Compliance %", NAMEOF('_Measures'[0807_Machine - SLA Compliance %]), 25),
+				    ("0502_Returns - Total", NAMEOF('_Measures'[0502_Returns - Total]), 26),
+				    ("0503_Return Rate % of Sales", NAMEOF('_Measures'[0503_Return Rate % of Sales]), 27),
+				    ("0100_Sales - Actual", NAMEOF('_Measures'[0100_Sales - Actual]), 28),
+				    ("0101_Sales - Goal (FactSalesQuota)", NAMEOF('_Measures'[0101_Sales - Goal (FactSalesQuota)]), 29),
+				    ("0102_Sales - Goal Achievement %", NAMEOF('_Measures'[0102_Sales - Goal Achievement %]), 30),
+				    ("0103_Sales - Strategic Plan Goal", NAMEOF('_Measures'[0103_Sales - Strategic Plan Goal]), 31),
+				    ("0104_Sales - vs Strategic Plan %", NAMEOF('_Measures'[0104_Sales - vs Strategic Plan %]), 32),
+				    ("0400_Sales - Store Channel", NAMEOF('_Measures'[0400_Sales - Store Channel]), 33),
+				    ("0401_Sales - Online Channel", NAMEOF('_Measures'[0401_Sales - Online Channel]), 34),
+				    ("0402_Online Sales % of Total", NAMEOF('_Measures'[0402_Online Sales % of Total]), 35),
+				    ("0403_Store Sales % of Total", NAMEOF('_Measures'[0403_Store Sales % of Total]), 36),
+				    ("0504_Cost of Goods Sold", NAMEOF('_Measures'[0504_Cost of Goods Sold]), 37),
+				    ("0601_Avg Transaction Value", NAMEOF('_Measures'[0601_Avg Transaction Value]), 38),
+				    ("0604_Avg Sales per Store", NAMEOF('_Measures'[0604_Avg Sales per Store]), 39),
+				    ("0603_Stores - Count", NAMEOF('_Measures'[0603_Stores - Count]), 40),
+				    ("0200_Units - Actual", NAMEOF('_Measures'[0200_Units - Actual]), 41),
+				    ("0201_Units - Goal (FactSalesQuota)", NAMEOF('_Measures'[0201_Units - Goal (FactSalesQuota)]), 42),
+				    ("0202_Units - Goal Achievement %", NAMEOF('_Measures'[0202_Units - Goal Achievement %]), 43),
+				    ("0203_Units - Store", NAMEOF('_Measures'[0203_Units - Store]), 44),
+				    ("0204_Units - Online", NAMEOF('_Measures'[0204_Units - Online]), 45)
+				}
+
+	annotation PBI_Id = 2626704f7501432e8557554982b6d79a
+

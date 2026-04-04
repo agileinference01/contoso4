@@ -1,0 +1,89 @@
+table FactITSLA
+	lineageTag: 8d7c68c9-03a3-4d3d-bb13-dd0a996ce6bc
+
+	column ITSLAkey
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a0066d8-6486-4ee2-b86d-f21c7186c6a7
+		summarizeBy: sum
+		sourceColumn: ITSLAkey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2f202698-4170-4b2e-b11b-f32c1ad612b4
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column StoreKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 350c8a55-446f-4c2c-8e42-b253b17a6eb8
+		summarizeBy: count
+		sourceColumn: StoreKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column MachineKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 0bd296b8-c271-4227-8f1e-3c44931d73fe
+		summarizeBy: none
+		sourceColumn: MachineKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OutageKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 8f07a6b9-25c1-4e25-8b11-56424999d6cb
+		summarizeBy: none
+		sourceColumn: OutageKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OutageStartTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e5720c43-0b01-426a-a45f-c81ba2c29683
+		summarizeBy: none
+		sourceColumn: OutageStartTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column OutageEndTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 1d25051c-2648-4536-95b6-53379a8caaed
+		summarizeBy: none
+		sourceColumn: OutageEndTime
+
+		annotation SummarizationSetBy = Automatic
+
+	column DownTime
+		dataType: int64
+		formatString: 0
+		lineageTag: 5811602f-bf47-45ed-86f0-b87baee712e6
+		summarizeBy: sum
+		sourceColumn: DownTime
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactITSLA = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\FactITSLA.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ITSLAkey", Int64.Type}, {"DateKey", type date}, {"StoreKey", Int64.Type}, {"MachineKey", Int64.Type}, {"OutageKey", Int64.Type}, {"OutageStartTime", type datetime}, {"OutageEndTime", type datetime}, {"DownTime", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "e4bce90e9af2423d55e2",
+  "position": {
+    "x": 392.62229350441055,
+    "y": 144.73135525260625,
+    "z": 0,
+    "height": 648.21170809943862,
+    "width": 980.785886126704,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDate"
+                    }
+                  },
+                  "Property": "Interval Month Label"
+                }
+              },
+              "queryRef": "DimDate.Interval Month Label",
+              "nativeQueryRef": "Interval Month Label",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0100_Sales - Actual"
+                }
+              },
+              "queryRef": "_Measures.0100_Sales - Actual",
+              "nativeQueryRef": "0100_Sales - Actual"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

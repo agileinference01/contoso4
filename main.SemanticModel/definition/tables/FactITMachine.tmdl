@@ -1,0 +1,61 @@
+table FactITMachine
+	lineageTag: d2af08c1-d158-4c82-8859-54db2ce377c2
+
+	column ITMachinekey
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c322e8c-1345-462b-a496-2fabd89e6103
+		summarizeBy: sum
+		sourceColumn: ITMachinekey
+
+		annotation SummarizationSetBy = Automatic
+
+	column MachineKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d0e0d72-85fd-4d78-8290-702eb2866f7a
+		summarizeBy: none
+		sourceColumn: MachineKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e86f9768-a979-43ac-a8a5-fa354cea741c
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CostAmount
+		dataType: int64
+		formatString: 0
+		lineageTag: 81ce04fb-f160-4793-bea6-c539d4d86bd0
+		summarizeBy: sum
+		sourceColumn: CostAmount
+
+		annotation SummarizationSetBy = Automatic
+
+	column CostType
+		dataType: string
+		lineageTag: 63b6205d-7305-45fa-bbbd-74e8bb88d29d
+		summarizeBy: none
+		sourceColumn: CostType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactITMachine = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\FactITMachine.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ITMachinekey", Int64.Type}, {"MachineKey", Int64.Type}, {"DateKey", type date}, {"CostAmount", Int64.Type}, {"CostType", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

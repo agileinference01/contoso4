@@ -1,0 +1,218 @@
+table FactSales
+	lineageTag: b7e5d4ed-b761-47c0-af5e-7b05ebce6369
+
+	column SalesKey
+		dataType: int64
+		formatString: 0
+		lineageTag: a3d48400-2d48-4393-b65b-2ddeb887e06f
+		summarizeBy: count
+		sourceColumn: SalesKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 096d7f28-9aba-44e4-bdb1-1ab9b7de0803
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column channelKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 835d9d14-c8a1-4f9e-840c-173718472c11
+		summarizeBy: none
+		sourceColumn: channelKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoreKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e182774b-cc90-43e5-978c-53f17f8536b1
+		summarizeBy: none
+		sourceColumn: StoreKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 22c80edd-a4a9-4b90-b0f8-c1a1337f0304
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column PromotionKey
+		dataType: int64
+		formatString: 0
+		lineageTag: a3d29291-83ec-496e-b923-eab6810c063a
+		summarizeBy: none
+		sourceColumn: PromotionKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrencyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: eb40f123-203e-44eb-8453-2e467beea41b
+		summarizeBy: none
+		sourceColumn: CurrencyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitCost
+		dataType: double
+		lineageTag: 7dba8ddd-3dbf-48d2-92c9-5793c7afeabc
+		summarizeBy: sum
+		sourceColumn: UnitCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column UnitPrice
+		dataType: double
+		lineageTag: a11086f2-da23-4fce-af7e-df8ac28a2073
+		summarizeBy: sum
+		sourceColumn: UnitPrice
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SalesQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 57e69203-59ca-4e9c-96f3-ec608558d3b1
+		summarizeBy: sum
+		sourceColumn: SalesQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 2137ea41-76cb-4b05-8187-2b70e43821f6
+		summarizeBy: sum
+		sourceColumn: ReturnQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column ReturnAmount
+		dataType: double
+		lineageTag: cbb15954-678a-42d9-a9ab-64a3c99d8400
+		summarizeBy: sum
+		sourceColumn: ReturnAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DiscountQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 9778bbce-6348-45e6-8206-1dca0e52beb1
+		summarizeBy: sum
+		sourceColumn: DiscountQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column DiscountAmount
+		dataType: double
+		lineageTag: 7aab6ace-aa98-45d4-90d7-e1604d20f489
+		summarizeBy: sum
+		sourceColumn: DiscountAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column TotalCost
+		dataType: double
+		lineageTag: ab070561-e503-40ad-a9cb-7c1d2f080909
+		summarizeBy: sum
+		sourceColumn: TotalCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column SalesAmount
+		dataType: double
+		lineageTag: 9e7cc6ce-9042-43d0-8d35-c97a8f1c8b19
+		summarizeBy: sum
+		sourceColumn: SalesAmount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Discount Rate to Sales' = DIVIDE(FactSales[DiscountAmount], FactSales[SalesAmount], BLANK())
+		lineageTag: ba4bcb4a-a275-4e56-8c79-62b6a778c668
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column CustomerKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 21a3bf29-2a8e-4001-b604-a21964950152
+		summarizeBy: count
+		sourceColumn: CustomerKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesOrderNumber
+		dataType: string
+		lineageTag: dd1e75c6-935c-4582-967e-3c0bb073e742
+		summarizeBy: none
+		sourceColumn: SalesOrderNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesOrderLineNumber
+		dataType: int64
+		formatString: 0
+		lineageTag: 0a9c9f71-6654-4b5c-a166-aa69c0dedc47
+		summarizeBy: sum
+		sourceColumn: SalesOrderLineNumber
+
+		annotation SummarizationSetBy = Automatic
+
+	column OnlineSalesKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e8241e11-1335-4587-abf3-add897c415d8
+		summarizeBy: count
+		sourceColumn: OnlineSalesKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactSales = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\FactSales.csv"),[Delimiter=",", Columns=16, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"SalesKey", Int64.Type}, {"DateKey", type date}, {"channelKey", Int64.Type}, {"StoreKey", Int64.Type}, {"ProductKey", Int64.Type}, {"PromotionKey", Int64.Type}, {"CurrencyKey", Int64.Type}, {"UnitCost", type number}, {"UnitPrice", type number}, {"SalesQuantity", Int64.Type}, {"ReturnQuantity", Int64.Type}, {"ReturnAmount", type number}, {"DiscountQuantity", Int64.Type}, {"DiscountAmount", type number}, {"TotalCost", type number}, {"SalesAmount", type number}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type", "CustomerKey", each null),
+				    #"Added Custom2" = Table.AddColumn(#"Added Custom", "SalesOrderNumber", each null),
+				    #"Added Custom1" = Table.AddColumn(#"Added Custom2", "SalesOrderLineNumber", each null),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom1",{{"SalesOrderLineNumber", Int64.Type}}),
+				    #"Changed Type2" = Table.TransformColumnTypes(#"Changed Type1",{{"SalesOrderNumber", Int64.Type}, {"CustomerKey", Int64.Type}}),
+				    #"Appended Query" = Table.Combine({#"Changed Type2", FactOnlineSales})
+				in
+				    #"Appended Query"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

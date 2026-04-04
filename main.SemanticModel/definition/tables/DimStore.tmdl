@@ -1,0 +1,157 @@
+table DimStore
+	lineageTag: f7e5f767-5b3a-4d45-a4e5-dbadb62e6b4e
+
+	column StoreKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e4d394d1-256b-47b2-a167-28cb6e0b8ab3
+		summarizeBy: none
+		sourceColumn: StoreKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: c03aee04-aa70-48fa-a04e-0af8bd2f6f0c
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoreManager
+		dataType: int64
+		formatString: 0
+		lineageTag: 884c548c-8ae7-44b0-8d6f-1199b027b844
+		summarizeBy: sum
+		sourceColumn: StoreManager
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoreType
+		dataType: string
+		lineageTag: ccebf7e0-fceb-418c-9d9d-b5953f8bc01a
+		summarizeBy: none
+		sourceColumn: StoreType
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoreName
+		dataType: string
+		lineageTag: cb11a007-3db5-460a-be51-0bbc47b21bd0
+		summarizeBy: none
+		sourceColumn: StoreName
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: c18a4f74-871f-4a39-88a9-96d32ccd7850
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column OpenDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 54f67b5c-1a5b-4029-8e23-363c3b3243a3
+		summarizeBy: none
+		sourceColumn: OpenDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CloseDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 66c920df-8291-44d4-9229-542d45415856
+		summarizeBy: none
+		sourceColumn: CloseDate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column EntityKey
+		dataType: int64
+		formatString: 0
+		lineageTag: b06b8287-d84b-488a-8098-bc3ffda5e137
+		summarizeBy: none
+		sourceColumn: EntityKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column StorePhone
+		dataType: string
+		lineageTag: 646f2549-7e16-45f1-823e-d2e03d519ce8
+		summarizeBy: none
+		sourceColumn: StorePhone
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoreFax
+		dataType: string
+		lineageTag: 2a0753da-fd50-4d5e-a5e6-4bd34b9b0e1b
+		summarizeBy: none
+		sourceColumn: StoreFax
+
+		annotation SummarizationSetBy = Automatic
+
+	column CloseReason
+		dataType: string
+		lineageTag: 106fd5ed-579d-40fb-be03-3a53b2bf9e6c
+		summarizeBy: none
+		sourceColumn: CloseReason
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeCount
+		dataType: int64
+		formatString: 0
+		lineageTag: c51836d1-00cd-4933-9c20-86f6e328e22a
+		summarizeBy: sum
+		sourceColumn: EmployeeCount
+
+		annotation SummarizationSetBy = Automatic
+
+	column SellingAreaSize
+		dataType: int64
+		formatString: 0
+		lineageTag: be9cfabe-f75e-4391-9759-6a6f088014bf
+		summarizeBy: sum
+		sourceColumn: SellingAreaSize
+
+		annotation SummarizationSetBy = Automatic
+
+	column LastRemodelDate
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 0483b9fb-28be-4e69-990b-159f45fc8830
+		summarizeBy: none
+		sourceColumn: LastRemodelDate
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 451e595c-bd2a-4643-9f96-7df8853280ad
+		summarizeBy: count
+		sourceColumn: EmployeeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimStore = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\DimStore.csv"),[Delimiter=",", Columns=16, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"StoreKey", Int64.Type}, {"GeographyKey", Int64.Type}, {"StoreManager", Int64.Type}, {"StoreType", type text}, {"StoreName", type text}, {"Status", type text}, {"OpenDate", type date}, {"CloseDate", type date}, {"EntityKey", Int64.Type}, {"StorePhone", type text}, {"StoreFax", type text}, {"CloseReason", type text}, {"EmployeeCount", Int64.Type}, {"SellingAreaSize", Int64.Type}, {"LastRemodelDate", type datetime}, {"EmployeeKey", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

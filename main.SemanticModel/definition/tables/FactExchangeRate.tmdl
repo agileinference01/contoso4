@@ -1,0 +1,64 @@
+table FactExchangeRate
+	lineageTag: 373e479e-6794-4b45-9634-b431971cdb2f
+
+	column ExchangeRateKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e3dfcc8b-397a-4306-b5e1-1b80d4bf694e
+		summarizeBy: count
+		sourceColumn: ExchangeRateKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrencyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 7b475a37-b2c3-4867-ae76-93a58bba5c32
+		summarizeBy: none
+		sourceColumn: CurrencyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b744dd37-d73d-4331-b462-5c07bed923cf
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column AverageRate
+		dataType: double
+		lineageTag: 9f41a71e-dc12-481a-b242-ba160631fe26
+		summarizeBy: sum
+		sourceColumn: AverageRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column EndOfDayRate
+		dataType: double
+		lineageTag: 7345f4cf-29e4-4663-9c67-4b16226b3d80
+		summarizeBy: sum
+		sourceColumn: EndOfDayRate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FactExchangeRate = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\FactExchangeRate.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ExchangeRateKey", Int64.Type}, {"CurrencyKey", Int64.Type}, {"DateKey", type date}, {"AverageRate", type number}, {"EndOfDayRate", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

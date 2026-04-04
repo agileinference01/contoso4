@@ -1,0 +1,116 @@
+table _MeasureCatalog
+	lineageTag: 8ba9b328-ef19-411e-a9f5-70b1c28b4297
+
+	column 'Metric Index'
+		dataType: string
+		lineageTag: 524f25e7-c321-4716-b1e1-5540be5a652f
+		sourceColumn: Metric Index
+
+	column 'Metric Name'
+		dataType: string
+		lineageTag: 965cc29d-0529-4005-9147-a03f27a88281
+		sourceColumn: Metric Name
+
+	column 'Metric Type'
+		dataType: string
+		lineageTag: 6d6a0180-534d-4591-9b33-defc2fda79a1
+		sourceColumn: Metric Type
+
+	column Category
+		dataType: string
+		lineageTag: ab4a0e4b-ed52-4fe2-ac62-22c80c467803
+		sourceColumn: Category
+
+	column Description
+		dataType: string
+		lineageTag: f429731e-030b-4ee1-b721-1bd692f1a29a
+		sourceColumn: Description
+
+	column 'Measure Prefix'
+		dataType: string
+		lineageTag: e23aecd4-634d-45fa-b60d-10fa70d867b7
+		sourceColumn: Measure Prefix
+
+	column 'Measure Name (No Prefix)'
+		dataType: string
+		lineageTag: cb9ac92d-e587-45b3-bfe7-0ce08214b557
+		sourceColumn: Measure Name (No Prefix)
+
+	column 'Value Type'
+		dataType: string
+		lineageTag: 6fc0e641-2b64-4a97-97d2-de2248349560
+		sourceColumn: Value Type
+
+	column ActualMeasure
+		dataType: string
+		lineageTag: 590a813a-9356-4875-ae42-a6ff59c265d0
+		summarizeBy: none
+		sourceColumn: ActualMeasure
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _MeasureCatalog = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows({
+				        {"0100", "Sales - Actual", "Number", "Sales Metrics", "Total sales revenue from all channels"},
+				        {"0101", "Sales - Goal (FactSalesQuota)", "Number", "Sales Metrics", "Sales target from FactSalesQuota"},
+				        {"0102", "Sales - Goal Achievement %", "Ratio/Percentage", "Sales Metrics", "Actual sales vs quota percentage"},
+				        {"0103", "Sales - Strategic Plan Goal", "Number", "Sales Metrics", "Sales target from FactStrategyPlan"},
+				        {"0104", "Sales - vs Strategic Plan %", "Ratio/Percentage", "Sales Metrics", "Actual sales vs strategic plan percentage"},
+				        {"0200", "Units - Actual", "Number", "Units Metrics", "Total units sold from all channels"},
+				        {"0201", "Units - Goal (FactSalesQuota)", "Number", "Units Metrics", "Units target from FactSalesQuota"},
+				        {"0202", "Units - Goal Achievement %", "Ratio/Percentage", "Units Metrics", "Actual units vs quota percentage"},
+				        {"0203", "Units - Store", "Number", "Units Metrics", "Units sold in stores"},
+				        {"0204", "Units - Online", "Number", "Units Metrics", "Units sold online"},
+				        {"0300", "Gross Profit - Actual", "Number", "Gross Profit Metrics", "Gross profit from all channels"},
+				        {"0301", "Gross Profit - Goal", "Number", "Gross Profit Metrics", "Gross profit target from FactSalesQuota"},
+				        {"0302", "Gross Profit - Goal Achievement %", "Ratio/Percentage", "Gross Profit Metrics", "Actual gross profit vs goal percentage"},
+				        {"0303", "Gross Margin %", "Ratio/Percentage", "Gross Profit Metrics", "Gross profit as percentage of sales"},
+				        {"0400", "Sales - Store Channel", "Number", "Channel Metrics", "In-store sales revenue"},
+				        {"0401", "Sales - Online Channel", "Number", "Channel Metrics", "Online sales revenue"},
+				        {"0402", "Online Sales % of Total", "Ratio/Percentage", "Channel Metrics", "Online sales as percentage of total"},
+				        {"0403", "Store Sales % of Total", "Ratio/Percentage", "Channel Metrics", "Store sales as percentage of total"},
+				        {"0500", "Discounts - Total", "Number", "Operational Metrics", "Total discount amount given"},
+				        {"0501", "Discount Rate % of Sales", "Ratio/Percentage", "Operational Metrics", "Discounts as percentage of sales"},
+				        {"0502", "Returns - Total", "Number", "Operational Metrics", "Total return amount"},
+				        {"0503", "Return Rate % of Sales", "Ratio/Percentage", "Operational Metrics", "Returns as percentage of sales"},
+				        {"0504", "Cost of Goods Sold", "Number", "Operational Metrics", "Total COGS from all channels"},
+				        {"0600", "Customers - Unique", "Number", "Customer Metrics", "Total unique customers"},
+				        {"0601", "Avg Transaction Value", "Number", "Customer Metrics", "Average value per transaction"},
+				        {"0602", "Customer Lifetime Value", "Number", "Customer Metrics", "Average sales per customer"},
+				        {"0603", "Stores - Count", "Number", "Customer Metrics", "Total number of stores"},
+				        {"0604", "Avg Sales per Store", "Number", "Customer Metrics", "Average sales revenue per store"},
+				        {"0700", "Machine - Total Downtime (Hours)", "Number", "Machine/IT Metrics", "Total machine downtime in hours"},
+				        {"0701", "Machine - Count with Downtime", "Number", "Machine/IT Metrics", "Number of machines with downtime"},
+				        {"0702", "Machine - Avg Downtime per Machine", "Number", "Machine/IT Metrics", "Average downtime per machine in hours"},
+				        {"0703", "Machine - Outage Incidents", "Number", "Machine/IT Metrics", "Total number of outage incidents"},
+				        {"0704", "Machine - Total Maintenance Cost", "Number", "Machine/IT Metrics", "Total maintenance cost"},
+				        {"0800", "Machine - Preventive Maintenance Cost", "Number", "Machine/IT Goals & Performance", "Preventive maintenance cost"},
+				        {"0801", "Machine - Emergency Maintenance Cost", "Number", "Machine/IT Goals & Performance", "Emergency/Unplanned maintenance cost"},
+				        {"0802", "Machine - Preventive % of Total Cost", "Ratio/Percentage", "Machine/IT Goals & Performance", "Preventive cost as % of total"},
+				        {"0803", "Machine - Emergency % of Total Cost", "Ratio/Percentage", "Machine/IT Goals & Performance", "Emergency cost as % of total"},
+				        {"0804", "Machine - Cost per Store", "Number", "Machine/IT Goals & Performance", "Average maintenance cost per store"},
+				        {"0805", "Machine - SLA Uptime Goal %", "Ratio/Percentage", "Machine/IT Goals & Performance", "Target system uptime SLA (99%)"},
+				        {"0806", "Machine - Actual Uptime %", "Ratio/Percentage", "Machine/IT Goals & Performance", "Actual system uptime percentage"},
+				        {"0807", "Machine - SLA Compliance %", "Ratio/Percentage", "Machine/IT Goals & Performance", "Actual uptime vs SLA goal percentage"},
+				        {"0900", "HR - Employees Total", "Number", "HR Metrics", "Total number of employees"},
+				        {"0901", "HR - Headcount per Store", "Number", "HR Metrics", "Average employees per store"},
+				        {"0902", "HR - Sales per Employee", "Number", "HR Metrics", "Average revenue per employee"},
+				        {"0903", "HR - Units per Employee", "Number", "HR Metrics", "Average units sold per employee"},
+				        {"0904", "HR - Productivity Score", "Number", "HR Metrics", "Sales per employee productivity metric"}
+				    }, type table [Metric Index=text, Metric Name=text, Metric Type=text, Category=text, Description=text]),
+				    Promoted = Table.TransformColumnTypes(Source,{{"Metric Index", type text},{"Metric Name", type text},{"Metric Type", type text},{"Category", type text},{"Description", type text}}),
+				    WithPrefix = Table.AddColumn(Promoted, "Measure Prefix", each if Text.Contains([Metric Name], " - ") then Text.Trim(Text.BeforeDelimiter([Metric Name], " - ")) else "", type text),
+				    WithoutPrefix = Table.AddColumn(WithPrefix, "Measure Name (No Prefix)", each if Text.Contains([Metric Name], " - ") then Text.Trim(Text.AfterDelimiter([Metric Name], " - ")) else [Metric Name], type text),
+				    ValueType = Table.AddColumn(WithoutPrefix, "Value Type", each if Text.Contains([Metric Type], "%") or Text.Contains([Metric Type], "Ratio") then "Percent" else "Numeric", type text),
+				    #"Added Custom" = Table.AddColumn(ValueType, "ActualMeasure", each "["&[Metric Index]&"_"&[Metric Name]&"]"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom",{{"ActualMeasure", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

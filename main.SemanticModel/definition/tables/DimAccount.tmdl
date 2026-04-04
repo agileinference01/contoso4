@@ -1,0 +1,65 @@
+table DimAccount
+	lineageTag: b75ce8ef-3f25-4f4b-b568-c18d05f3b592
+
+	column AccountKey
+		dataType: int64
+		formatString: 0
+		lineageTag: f0dba56c-fe4c-4f58-88bf-690e7d942b92
+		summarizeBy: none
+		sourceColumn: AccountKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ParentAccountKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a625d50-cbff-4681-a7d5-d2b211cb7be4
+		summarizeBy: none
+		sourceColumn: ParentAccountKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountName
+		dataType: string
+		lineageTag: 72692bb4-0b1f-4f43-8940-ef92b833cab6
+		summarizeBy: none
+		sourceColumn: AccountName
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountDescription
+		dataType: string
+		lineageTag: c3fc3bb5-419d-4831-aaf9-ddf503d4a0fe
+		summarizeBy: none
+		sourceColumn: AccountDescription
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountType
+		dataType: string
+		lineageTag: 854880e2-fee8-468e-a60c-15a96ded60a0
+		summarizeBy: none
+		sourceColumn: AccountType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ValueType
+		dataType: string
+		lineageTag: 860b1e4c-84e0-497f-8ed4-9cd399b355ef
+		summarizeBy: none
+		sourceColumn: ValueType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimAccount = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\DimAccount.csv"),[Delimiter=",", Columns=6, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"AccountKey", Int64.Type}, {"ParentAccountKey", Int64.Type}, {"AccountName", type text}, {"AccountDescription", type text}, {"AccountType", type text}, {"ValueType", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

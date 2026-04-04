@@ -1,0 +1,558 @@
+table _Measures
+	lineageTag: 977f8a19-02a4-4b25-a552-b1ae23883042
+
+	measure '0100_Sales - Actual' = SUM(FactSales[SalesAmount])
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: 16272a78-73be-429e-ad65-81f3163ddcea
+
+	measure '0101_Sales - Goal (FactSalesQuota)' = SUM(FactSalesQuota[SalesAmountQuota])
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: 653dd41e-0a30-48ff-8806-0ce4e83c0f74
+
+	measure '0102_Sales - Goal Achievement %' = IFERROR([0101_Sales - Goal (FactSalesQuota)] / [0100_Sales - Actual], 0)
+		formatString: 0.00%
+		displayFolder: _Sales
+		lineageTag: 2e544652-2925-4bd5-a73c-a151eea503dd
+
+	measure '0103_Sales - Strategic Plan Goal' = SUM(FactStrategyPlan[Amount])
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: 072083ee-edd1-482b-8b5d-5eb02cbb6022
+
+	measure '0104_Sales - vs Strategic Plan %' = IFERROR([0100_Sales - Actual] / [0103_Sales - Strategic Plan Goal], 0)
+		formatString: 0.00%
+		displayFolder: _Sales
+		lineageTag: 43503bf8-c43f-407e-901c-181d470ad0d8
+
+	measure '0200_Units - Actual' = SUM(FactSales[SalesQuantity])
+		formatString: #,0
+		displayFolder: _Units
+		lineageTag: d8ee6a8d-0a99-41aa-afb8-b5a634b85cc2
+
+	measure '0201_Units - Goal (FactSalesQuota)' = SUM(FactSalesQuota[SalesQuantityQuota])
+		formatString: #,0
+		displayFolder: _Units
+		lineageTag: da37fa01-9afa-4617-9950-c032d64da80e
+
+	measure '0202_Units - Goal Achievement %' = IFERROR([0200_Units - Actual] / [0201_Units - Goal (FactSalesQuota)], 0)
+		formatString: 0.00%
+		displayFolder: _Units
+		lineageTag: 8e2b3f1c-57da-42fb-8c8c-3e99d7880339
+
+	measure '0203_Units - Store' = SUM(FactSales[SalesQuantity])
+		formatString: #,0
+		displayFolder: _Units
+		lineageTag: 361af9e7-6635-4592-98a0-d77286edc08a
+
+	measure '0204_Units - Online' = SUM(FactOnlineSales[SalesQuantity])
+		formatString: #,0
+		displayFolder: _Units
+		lineageTag: ee449cc5-fb40-49f4-b42e-448977fb9483
+
+	measure '0300_Gross Profit - Actual' = (SUM(FactSales[SalesAmount])) - (SUM(FactSales[TotalCost]))
+		formatString: $#,0.00
+		displayFolder: _Gross Profit
+		lineageTag: 50e4ecdd-2983-4ef1-9400-b60cb039437d
+
+	measure '0301_Gross Profit - Goal' = SUM(FactSalesQuota[GrossMarginQuota])
+		formatString: $#,0.00
+		displayFolder: _Gross Profit
+		lineageTag: 93777e3d-4337-4a05-91f9-79af8b6046a2
+
+	measure '0302_Gross Profit - Goal Achievement %' = IFERROR([0300_Gross Profit - Actual] / [0301_Gross Profit - Goal], 0)
+		formatString: 0.00%
+		displayFolder: _Gross Profit
+		lineageTag: 508377be-4b99-42eb-bb27-935f74ba955d
+
+	measure '0303_Gross Margin %' = IFERROR([0300_Gross Profit - Actual] / [0100_Sales - Actual], 0)
+		formatString: 0.00%
+		displayFolder: _Gross Profit
+		lineageTag: 1fbcb212-e224-4368-b6ab-1ef3c7e0f5d0
+
+	measure '0400_Sales - Store Channel' = SUM(FactSales[SalesAmount])
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: a24d5818-ac40-4439-a092-8bf41bf59cc9
+
+	measure '0401_Sales - Online Channel' = SUM(FactOnlineSales[SalesAmount])
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: 77d72f58-a497-4125-b975-374341417009
+
+	measure '0402_Online Sales % of Total' = IFERROR([0401_Sales - Online Channel] / [0100_Sales - Actual], 0)
+		formatString: 0.00%
+		displayFolder: _Sales
+		lineageTag: 62a82257-8505-4749-b8cd-108fe053283c
+
+	measure '0403_Store Sales % of Total' = IFERROR([0400_Sales - Store Channel] / [0100_Sales - Actual], 0)
+		formatString: 0.00%
+		displayFolder: _Sales
+		lineageTag: 39215672-af2b-4545-a3c4-efa147ba6740
+
+	measure '0500_Discounts - Total' = SUM(FactSales[DiscountAmount])
+		formatString: $#,0.00
+		displayFolder: _Discounts
+		lineageTag: f8d868c9-53bd-42c8-a654-4c9dbcd2430e
+
+	measure '0501_Discount Rate % of Sales' = IFERROR([0500_Discounts - Total] / [0100_Sales - Actual], 0)
+		formatString: 0.00%
+		displayFolder: _Discounts
+		lineageTag: 00bc52d4-facc-4080-8db7-d6c9724bfc32
+
+	measure '0502_Returns - Total' = SUM(FactSales[ReturnAmount])
+		formatString: $#,0.00
+		displayFolder: _Returns
+		lineageTag: bd20ad31-ea39-45d0-a893-e9c709a958fe
+
+	measure '0503_Return Rate % of Sales' = IFERROR([0502_Returns - Total] / [0100_Sales - Actual], 0)
+		formatString: 0.00%
+		displayFolder: _Returns
+		lineageTag: 6c7c5215-656d-4935-8de3-7381fc8b461c
+
+	measure '0504_Cost of Goods Sold' = SUM(FactSales[TotalCost]) + SUM(FactOnlineSales[TotalCost])
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: 4153bc53-b772-48d1-b2fe-c027f6dd21e5
+
+	measure '0600_Customers - Unique' = DISTINCTCOUNT(FactSales[CustomerKey])
+		formatString: #,0
+		displayFolder: _Customers
+		lineageTag: 6d73ce27-eabc-4d0c-b9dd-e7d219be271d
+
+	measure '0601_Avg Transaction Value' = IFERROR([0100_Sales - Actual] / (COUNTA(FactSales[SalesKey]) + COUNTA(FactOnlineSales[OnlineSalesKey])), 0)
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: ae3d527f-0c69-44a0-ac82-8197b19f83a3
+
+	measure '0602_Customer Lifetime Value' = IFERROR([0100_Sales - Actual] / [0600_Customers - Unique], 0)
+		formatString: $#,0.00
+		displayFolder: _Customers
+		lineageTag: da5a03eb-263d-488d-a7c6-4c9bfccce7d9
+
+	measure '0603_Stores - Count' = DISTINCTCOUNT(FactSales[StoreKey])
+		formatString: #,0
+		displayFolder: _Stores
+		lineageTag: 5a015767-4f43-44b6-acf8-4a3b527b2ecd
+
+	measure '0604_Avg Sales per Store' = IFERROR([0400_Sales - Store Channel] / [0603_Stores - Count], 0)
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: cf712f89-eca7-49ee-9207-1621ac037abe
+
+	measure '0700_Machine - Total Downtime (Hours)' = SUM(FactITSLA[DownTime]) / 60
+		formatString: #,0.00
+		displayFolder: _Machine
+		lineageTag: e892d369-e986-4da8-82e2-276d2e7a4e62
+
+	measure '0701_Machine - Count with Downtime' = DISTINCTCOUNT(FactITSLA[MachineKey])
+		formatString: #,0
+		displayFolder: _Machine
+		lineageTag: 8546c4c8-6977-4c8d-b57b-7e8764c82796
+
+	measure '0702_Machine - Avg Downtime per Machine' = IFERROR([0700_Machine - Total Downtime (Hours)] / [0701_Machine - Count with Downtime], 0)
+		formatString: #,0.00
+		displayFolder: _Machine
+		lineageTag: ec846ccb-e0e8-4b81-a28a-e9932f6bd0b1
+
+	measure '0703_Machine - Outage Incidents' = DISTINCTCOUNT(FactITSLA[OutageKey])
+		formatString: #,0
+		displayFolder: _Machine
+		lineageTag: a4d407a2-3143-4665-8128-131aa5d936d1
+
+	measure '0704_Machine - Total Maintenance Cost' = SUM(FactITMachine[CostAmount])
+		formatString: $#,0.00
+		displayFolder: _Machine
+		lineageTag: d4c11bb0-8c59-4e6e-bb09-1dd9698a2024
+
+	measure '0800_Machine - Preventive Maintenance Cost' = CALCULATE(SUM(FactITMachine[CostAmount]), FactITMachine[CostType] = "Preventive")
+		formatString: $#,0.00
+		displayFolder: _Machine
+		lineageTag: f3b35fd2-eefc-401a-81ce-4e428a3d4295
+
+	measure '0801_Machine - Emergency Maintenance Cost' = CALCULATE(SUM(FactITMachine[CostAmount]), FactITMachine[CostType] = "Emergency")
+		formatString: $#,0.00
+		displayFolder: _Machine
+		lineageTag: faf5d69a-0b8c-49b3-bf61-b23c0122cdbd
+
+	measure '0802_Machine - Preventive % of Total Cost' = IFERROR([0800_Machine - Preventive Maintenance Cost] / [0704_Machine - Total Maintenance Cost], 0)
+		formatString: 0.00%
+		displayFolder: _Machine
+		lineageTag: 9bf33364-cec4-4ce1-90ac-17dbb5cf6c94
+
+	measure '0803_Machine - Emergency % of Total Cost' = IFERROR([0801_Machine - Emergency Maintenance Cost] / [0704_Machine - Total Maintenance Cost], 0)
+		formatString: 0.00%
+		displayFolder: _Machine
+		lineageTag: a99a99da-5225-4c94-9288-da5bcd599ee8
+
+	measure '0804_Machine - Cost per Store' = IFERROR([0704_Machine - Total Maintenance Cost] / DISTINCTCOUNT(FactITSLA[StoreKey]), 0)
+		formatString: $#,0.00
+		displayFolder: _Machine
+		lineageTag: 69eec276-f27f-4cf0-bdd8-88ac1c5056fe
+
+	measure '0805_Machine - SLA Uptime Goal %' = 0.99
+		formatString: 0.00%
+		displayFolder: _Machine
+		lineageTag: 5b021505-1e81-4923-a250-02370b991729
+
+	measure '0806_Machine - Actual Uptime %' = IFERROR(1 - ([0700_Machine - Total Downtime (Hours)] / (24 * DISTINCTCOUNT(FactITSLA[DateKey]) * [0701_Machine - Count with Downtime])), 1)
+		formatString: 0.00%
+		displayFolder: _Machine
+		lineageTag: 5826a24e-9a86-4f84-95f4-8a78fdd68018
+
+	measure '0807_Machine - SLA Compliance %' = IFERROR([0806_Machine - Actual Uptime %] / [0805_Machine - SLA Uptime Goal %], 0)
+		formatString: 0.00%
+		displayFolder: _Machine
+		lineageTag: 15f4c1a5-f22e-46af-b0b9-1c1e8b04b26f
+
+	measure '0900_HR - Employees Total' = DISTINCTCOUNT(DimEmployee[EmployeeKey])
+		formatString: #,0
+		displayFolder: _HR
+		lineageTag: 298bf248-a947-4263-be29-bccac6b8a6fe
+
+	measure '0901_HR - Headcount per Store' = IFERROR([0900_HR - Employees Total] / [0603_Stores - Count], 0)
+		formatString: #,0.00
+		displayFolder: _HR
+		lineageTag: 8e63e911-0879-445d-9fef-8257fb5ef50d
+
+	measure '0902_HR - Sales per Employee' = IFERROR([0100_Sales - Actual] / [0900_HR - Employees Total], 0)
+		formatString: $#,0.00
+		displayFolder: _HR
+		lineageTag: 9e98a25f-4e43-4555-a89d-f407a2173030
+
+	measure '0903_HR - Units per Employee' = IFERROR([0200_Units - Actual] / [0900_HR - Employees Total], 0)
+		formatString: #,0.00
+		displayFolder: _HR
+		lineageTag: 5778c3ef-7b31-40c8-aed9-5a86a1ccaf20
+
+	measure '0904_HR - Productivity Score' = [0902_HR - Sales per Employee]
+		formatString: $#,0.00
+		displayFolder: _HR
+		lineageTag: 2e849c1e-e1c6-4b96-a3aa-e80113ab22eb
+
+	measure 0000_Blank = BLANK()
+		formatString: 0
+		displayFolder: _Non Measures
+		lineageTag: b9122142-3ab2-4039-bbc4-8bd11e799be0
+
+	measure 0001_Username =
+			
+			var _email = USERPRINCIPALNAME()
+			var _pos = SEARCH("@", _email, 1, BLANK())
+			
+			RETURN
+			IF(
+			    NOT ISBLANK(_pos),
+			    LEFT(_email, _pos - 1),  -- Extract everything before "@"
+			    BLANK()  -- Return blank if "@" not found
+			)
+		displayFolder: _Non Measures
+		lineageTag: d78b8f3c-20f4-445c-b7e3-8718d8b04eb9
+
+	measure '0002_Max Date' = max(DimCalendar[DateKey])
+		formatString: Short Date
+		displayFolder: _Non Measures
+		lineageTag: d4075e54-b639-4f8b-931b-071497898bce
+
+	measure '0003_Min Date' = MIN(DimCalendar[DateKey])
+		formatString: Short Date
+		displayFolder: _Non Measures
+		lineageTag: cb1623c5-b85b-4b8a-93ff-309d8ee3b1a8
+
+	measure '0004_Min Date Curent Period' = ```
+			
+			var _sel = max('Interval Parameter'[Interval Parameter])
+			var _check = [0008_Selected Date Check]
+			var _max = [0002_Max Date]
+			var _min = [0003_Min Date]
+			var _cqstart = GetQuarterStart(_min)
+			var _cqdaydiff = DATEDIFF(_cqstart, _min, DAY)
+			var _daydiff = DATEDIFF([0003_Min Date], [0002_Max Date], DAY)
+			var _filtered_result = 
+			SWITCH(_sel,
+			"Daily", _min-_daydiff-1,
+			"Weekly", _min-7,
+			"Monthly", date(year(EOMONTH(_min,0)), month(EOMONTH(_min,0)),DAY(_min)),
+			"Quarterly", GetQuarterStart(_min-90)+_cqdaydiff,
+			"Yearly", DATE(YEAR(_min)-1, MONTH(_min), DAY(_min))
+			)
+			var _nonfiltered_result = 
+			SWITCH(_sel,
+			"Daily", _max-1,
+			"Weekly", GetWeekStart(_max),
+			"Monthly", date(year(EOMONTH(_max,-1)+1), month(EOMONTH(_max,-1)+1),1),
+			"Quarterly", GetQuarterStart(_max-180),
+			"Yearly", DATE(YEAR(EOMONTH(_max,-12)), 1, 1)
+			)
+			RETURN
+			if(_check=1, _filtered_result, _nonfiltered_result)
+			```
+		formatString: Short Date
+		displayFolder: _Non Measures
+		lineageTag: b0d24c78-9a65-4f7f-9161-8df7b4074607
+
+	measure '0005_Min Date Previous Period' = ```
+			
+			var _sel = max('Interval Parameter'[Interval Parameter])
+			var _check = [0008_Selected Date Check]
+			var _max = [0002_Max Date]
+			var _min = [0003_Min Date]
+			var _cqstart = GetQuarterStart(_min)
+			var _cqdaydiff = DATEDIFF(_cqstart, _min, DAY)
+			var _daydiff = DATEDIFF([0003_Min Date], [0002_Max Date], DAY)
+			var _filtered_result = 
+			SWITCH(_sel,
+			"Daily", _min-_daydiff-1,
+			"Weekly", _min-7,
+			"Monthly", date(year(EOMONTH(_min-_daydiff,-1)), month(EOMONTH(_min-_daydiff,-1)),DAY(_min)),
+			"Quarterly", GetQuarterStart(_min-90)+_cqdaydiff,
+			"Yearly", DATE(YEAR(_min)-1, MONTH(_min), DAY(_min))
+			)
+			var _nonfiltered_result = 
+			SWITCH(_sel,
+			"Daily", _max-1,
+			"Weekly", GetWeekStart(_max-7),
+			"Monthly", date(year(EOMONTH(_max,-1)), month(EOMONTH(_max,-1)),1),
+			"Quarterly", GetQuarterStart(_max-180),
+			"Yearly", DATE(YEAR(EOMONTH(_max,-12)), 1, 1)
+			)
+			RETURN
+			if(_check=1, _filtered_result, _nonfiltered_result)
+			```
+		formatString: Short Date
+		displayFolder: _Non Measures
+		lineageTag: ea656425-db35-4986-afaa-9ed091352d63
+
+	measure '0006_Max Date Previous Period' = ```
+			
+			var _sel = max('Interval Parameter'[Interval Parameter])
+			var _check = [0008_Selected Date Check]
+			var _max = [0002_Max Date]
+			var _min = [0003_Min Date]
+			var _cqstart = GetQuarterStart(_min)
+			var _cqdaydiff = DATEDIFF(_cqstart, _min, DAY)
+			var _daydiff = DATEDIFF([0003_Min Date], [0002_Max Date], DAY)
+			var _filtered_result = 
+			SWITCH(_sel,
+			"Daily", _min-1,
+			"Weekly", _max-7,
+			"Monthly", date(year(EOMONTH(_max,-1)), month(EOMONTH(_max,-1)),DAY(_max)),
+			"Quarterly", GetQuarterStart(_min-90)+_cqdaydiff + _daydiff,
+			"Yearly", DATE(YEAR(_max)-1, MONTH(_max), DAY(_max))
+			)
+			var _nonfiltered_result = 
+			SWITCH(_sel,
+			"Daily", _max-1,
+			"Weekly", GetWeekStart(_max)-1,
+			"Monthly", EOMONTH(_max,-1),
+			"Quarterly", GetQuarterStart(_max)-1,
+			"Yearly", DATE(YEAR(EOMONTH(_max,-12)), MONTH(EOMONTH(_max,-12)), DAY(EOMONTH(_max,-12)))
+			)
+			RETURN
+			if(_check=1, _filtered_result, _nonfiltered_result)
+			```
+		formatString: Short Date
+		displayFolder: _Non Measures
+		lineageTag: dc8eec76-3c81-48bc-abed-9df428bcdda8
+
+	measure '0008_Selected Date Check' = ```
+			
+			var _date = ISFILTERED(DimCalendar[DateKey])
+			var _month = ISFILTERED(DimCalendar[Interval Month Label])
+			RETURN
+			if(_date = TRUE() || _month = TRUE(),
+			1,
+			0
+			)
+			
+			```
+		formatString: 0
+		displayFolder: _Non Measures
+		lineageTag: 089e1e66-7ce3-4320-92e6-92d375eb1aa1
+
+	measure '0009_Selected Measure' = ```
+			
+			
+			var _sel = SELECTEDVALUE('_MeasureCatalog'[Metric Name])
+			return
+			SWITCH(_sel,
+			    "Sales - Actual", [0100_Sales - Actual],
+			    "Sales - Goal (FactSalesQuota)", [0101_Sales - Goal (FactSalesQuota)],
+			    "Sales - Goal Achievement %", [0102_Sales - Goal Achievement %],
+			    "Sales - Strategic Plan Goal", [0103_Sales - Strategic Plan Goal],
+			    "Sales - vs Strategic Plan %", [0104_Sales - vs Strategic Plan %],
+			    "Units - Actual", [0200_Units - Actual],
+			    "Units - Goal (FactSalesQuota)", [0201_Units - Goal (FactSalesQuota)],
+			    "Units - Goal Achievement %", [0202_Units - Goal Achievement %],
+			    "Units - Store", [0203_Units - Store],
+			    "Units - Online", [0204_Units - Online],
+			    "Gross Profit - Actual", [0300_Gross Profit - Actual],
+			    "Gross Profit - Goal", [0301_Gross Profit - Goal],
+			    "Gross Profit - Goal Achievement %", [0302_Gross Profit - Goal Achievement %],
+			    "Gross Margin %", [0303_Gross Margin %],
+			    "Sales - Store Channel", [0400_Sales - Store Channel],
+			    "Sales - Online Channel", [0401_Sales - Online Channel],
+			    "Online Sales % of Total", [0402_Online Sales % of Total],
+			    "Store Sales % of Total", [0403_Store Sales % of Total],
+			    "Discounts - Total", [0500_Discounts - Total],
+			    "Discount Rate % of Sales", [0501_Discount Rate % of Sales],
+			    "Returns - Total", [0502_Returns - Total],
+			    "Return Rate % of Sales", [0503_Return Rate % of Sales],
+			    "Cost of Goods Sold", [0504_Cost of Goods Sold],
+			    "Customers - Unique", [0600_Customers - Unique],
+			    "Avg Transaction Value", [0601_Avg Transaction Value],
+			    "Customer Lifetime Value", [0602_Customer Lifetime Value],
+			    "Stores - Count", [0603_Stores - Count],
+			    "Avg Sales per Store", [0604_Avg Sales per Store],
+			    "Machine - Total Downtime (Hours)", [0700_Machine - Total Downtime (Hours)],
+			    "Machine - Count with Downtime", [0701_Machine - Count with Downtime],
+			    "Machine - Avg Downtime per Machine", [0702_Machine - Avg Downtime per Machine],
+			    "Machine - Outage Incidents", [0703_Machine - Outage Incidents],
+			    "Machine - Total Maintenance Cost", [0704_Machine - Total Maintenance Cost],
+			    "Machine - Preventive Maintenance Cost", [0800_Machine - Preventive Maintenance Cost],
+			    "Machine - Emergency Maintenance Cost", [0801_Machine - Emergency Maintenance Cost],
+			    "Machine - Preventive % of Total Cost", [0802_Machine - Preventive % of Total Cost],
+			    "Machine - Emergency % of Total Cost", [0803_Machine - Emergency % of Total Cost],
+			    "Machine - Cost per Store", [0804_Machine - Cost per Store],
+			    "Machine - SLA Uptime Goal %", [0805_Machine - SLA Uptime Goal %],
+			    "Machine - Actual Uptime %", [0806_Machine - Actual Uptime %],
+			    "Machine - SLA Compliance %", [0807_Machine - SLA Compliance %],
+			    "HR - Employees Total", [0900_HR - Employees Total],
+			    "HR - Headcount per Store", [0901_HR - Headcount per Store],
+			    "HR - Sales per Employee", [0902_HR - Sales per Employee],
+			    "HR - Units per Employee", [0903_HR - Units per Employee],
+			    "HR - Productivity Score", [0904_HR - Productivity Score],
+			    BLANK()
+			)
+			
+			```
+		displayFolder: _Non Measures
+		lineageTag: 0fe822fe-01fc-4e4d-bbd4-8eb684a30fa3
+
+		formatStringDefinition = ```
+				var _sel = SELECTEDVALUE('_MeasureCatalog'[Metric Name])
+				return
+				SWITCH(_sel,
+				    "Sales - Actual", "#,000",
+				    "Sales - Goal (FactSalesQuota)", "#,000",
+				    "Sales - Goal Achievement %", "0.00%",
+				    "Sales - Strategic Plan Goal","#,000",
+				    "Sales - vs Strategic Plan %",  "0.00%",
+				    "Units - Actual", "#,000",
+				    "Units - Goal (FactSalesQuota)", "#,000",
+				    "Units - Goal Achievement %",  "0.00%",
+				    "Units - Store", "#,000",
+				    "Units - Online", "#,000",
+				    "Gross Profit - Goal Achievement %",  "0.00%",
+				    "Gross Margin %",  "0.00%",
+				    "Sales - Store Channel", "#,000",
+				    "Sales - Online Channel", "#,000",
+				    "Online Sales % of Total",  "0.00%",
+				    "Store Sales % of Total",  "0.00%",
+				    "Discount Rate % of Sales",  "0.00%",
+				    "Return Rate % of Sales",  "0.00%",
+				    "Customers - Unique", "#,000",
+				    "Stores - Count", "#,000",
+				    "Machine - Count with Downtime", "#,000",
+				    "Machine - Outage Incidents", "#,000",
+				    "Machine - Preventive % of Total Cost",  "0.00%",
+				    "Machine - SLA Uptime Goal %",  "0.00%",
+				    "Machine - Actual Uptime %",  "0.00%",
+				    "Machine - SLA Compliance %",  "0.00%",
+				    "HR - Employees Total", "#,000",
+				    "#,000.00"
+				)
+				
+				
+				```
+
+	measure '0010_Selected Measure Label' = SELECTEDVALUE(_MeasureCatalog[Metric Name])
+		displayFolder: _Non Measures
+		lineageTag: 70d583ff-1b1c-4371-80b2-5079346211bd
+
+	measure '0011_Current Period Interval Label' = ```
+			
+			VAR _filtered = if((ISFILTERED(DimCalendar[Interval Month Label])) || (ISFILTERED(DimCalendar[DateKey])), 1, 0)
+			VAR _min = if(_filtered = 0, [0004_Min Date Curent Period], MIN(DimCalendar[DateKey]))
+			VAR _max = MAX(DimCalendar[DateKey])
+			RETURN
+			_min & " - " & _max
+			
+			
+			```
+		displayFolder: _Non Measures
+		lineageTag: 000285a0-dd54-40dd-98ab-d45178e34971
+
+	measure '0012_Selected Measure Current Period' =
+			
+			VAR _max = max(DimCalendar[DateKey])
+			VAR _min = [0004_Min Date Curent Period]
+			RETURN
+			CALCULATE([0009_Selected Measure], DimCalendar[DateKey]>=_min && DimCalendar[DateKey]<=_max)
+		displayFolder: _Non Measures
+		lineageTag: 87a74810-f85c-443f-8cca-992540024167
+
+		formatStringDefinition = ```
+				var _sel = SELECTEDVALUE('_MeasureCatalog'[Metric Name])
+				return
+				SWITCH(_sel,
+				    "Sales - Actual", "#,000",
+				    "Sales - Goal (FactSalesQuota)", "#,000",
+				    "Sales - Goal Achievement %", "0.00%",
+				    "Sales - Strategic Plan Goal","#,000",
+				    "Sales - vs Strategic Plan %",  "0.00%",
+				    "Units - Actual", "#,000",
+				    "Units - Goal (FactSalesQuota)", "#,000",
+				    "Units - Goal Achievement %",  "0.00%",
+				    "Units - Store", "#,000",
+				    "Units - Online", "#,000",
+				    "Gross Profit - Goal Achievement %",  "0.00%",
+				    "Gross Margin %",  "0.00%",
+				    "Sales - Store Channel", "#,000",
+				    "Sales - Online Channel", "#,000",
+				    "Online Sales % of Total",  "0.00%",
+				    "Store Sales % of Total",  "0.00%",
+				    "Discount Rate % of Sales",  "0.00%",
+				    "Return Rate % of Sales",  "0.00%",
+				    "Customers - Unique", "#,000",
+				    "Stores - Count", "#,000",
+				    "Machine - Count with Downtime", "#,000",
+				    "Machine - Outage Incidents", "#,000",
+				    "Machine - Preventive % of Total Cost",  "0.00%",
+				    "Machine - SLA Uptime Goal %",  "0.00%",
+				    "Machine - Actual Uptime %",  "0.00%",
+				    "Machine - SLA Compliance %",  "0.00%",
+				    "HR - Employees Total", "#,000",
+				    "#,0.00"
+				)
+				
+				
+				```
+
+	measure '0013_Previous Period Interval Label' = ```
+			
+			VAR _filtered = if((ISFILTERED(DimCalendar[Interval Month Label])) || (ISFILTERED(DimCalendar[DateKey])), 1, 0)
+			VAR _diff = DATEDIFF([0003_Min Date], [0002_Max Date], DAY)
+			VAR _min = [0005_Min Date Previous Period]
+			VAR _max = [0006_Max Date Previous Period]
+			RETURN
+			_min & " - " & _max
+			
+			
+			```
+		displayFolder: _Non Measures
+		lineageTag: bbcbdbe9-7a15-4810-897c-727ec2a84aa1
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

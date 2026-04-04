@@ -1,0 +1,56 @@
+table DimOutage
+	lineageTag: 046ca34d-a0c9-4f1b-8c17-d7777153fdd2
+
+	column OutageKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 9fafe80e-bde6-4f44-8eeb-ff1339e6d8d5
+		summarizeBy: none
+		sourceColumn: OutageKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OutageName
+		dataType: string
+		lineageTag: 078a8ad3-19df-4867-abb5-9f5a0fc9ea86
+		summarizeBy: none
+		sourceColumn: OutageName
+
+		annotation SummarizationSetBy = Automatic
+
+	column OutageType
+		dataType: string
+		lineageTag: ca7787dc-d5ea-46e0-b7f9-56916aa0f39d
+		summarizeBy: none
+		sourceColumn: OutageType
+
+		annotation SummarizationSetBy = Automatic
+
+	column OutageTypeDescription
+		dataType: string
+		lineageTag: 376f8b22-74dd-4d26-a59d-05b46e1ffff3
+		summarizeBy: none
+		sourceColumn: OutageTypeDescription
+
+		annotation SummarizationSetBy = Automatic
+
+	column OutageSubType
+		dataType: string
+		lineageTag: b64236db-af22-4325-bd51-061ca3784b54
+		summarizeBy: none
+		sourceColumn: OutageSubType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimOutage = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\DimOutage.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"OutageKey", Int64.Type}, {"OutageName", type text}, {"OutageType", type text}, {"OutageTypeDescription", type text}, {"OutageSubType", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

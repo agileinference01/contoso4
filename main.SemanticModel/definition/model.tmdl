@@ -1,0 +1,49 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DimAccount","DimChannel","DimCurrency","DimCustomer","DimDate","DimEmployee","DimEntity","DimGeography","DimMachine","DimOutage","DimProduct","DimProductCategory","DimProductSubcategory","DimPromotion","DimSalesTerritory","DimScenario","DimStore","FactExchangeRate","FactInventory","FactITMachine","FactITSLA","FactOnlineSales","FactSales","FactSalesQuota","FactStrategyPlan","_Measures","_Date Period Selector","_MeasureCatalog"]
+
+annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling","TMDLView_Desktop","DaxQueryView_Desktop"]
+
+ref table DimAccount
+ref table DimChannel
+ref table DimCurrency
+ref table DimCustomer
+ref table DimDate
+ref table DimEmployee
+ref table DimEntity
+ref table DimGeography
+ref table DimMachine
+ref table DimOutage
+ref table DimProduct
+ref table DimProductCategory
+ref table DimProductSubcategory
+ref table DimPromotion
+ref table DimSalesTerritory
+ref table DimScenario
+ref table DimStore
+ref table FactExchangeRate
+ref table FactInventory
+ref table FactITMachine
+ref table FactITSLA
+ref table FactOnlineSales
+ref table FactSales
+ref table FactSalesQuota
+ref table FactStrategyPlan
+ref table _Measures
+ref table '_Date Periods'
+ref table '_Date Period Selector'
+ref table 'Interval Parameter'
+ref table DimCalendar
+ref table _MeasureCatalog
+ref table 'Select Measure Parameter'
+
+ref cultureInfo en-US
+

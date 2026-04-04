@@ -1,0 +1,176 @@
+relationship AutoDetected_c4eca8e8-2015-49e1-b333-1a6e2040b67f
+	fromColumn: DimCustomer.GeographyKey
+	toColumn: DimGeography.GeographyKey
+
+relationship AutoDetected_36c1677e-156a-4844-b0df-3c6e514b9714
+	fromColumn: DimProduct.ProductSubcategoryKey
+	toColumn: DimProductSubcategory.ProductSubcategoryKey
+
+relationship AutoDetected_1f6f6530-9e22-4b70-beec-53d3ee3f27ff
+	fromColumn: DimProductSubcategory.ProductCategoryKey
+	toColumn: DimProductCategory.ProductCategoryKey
+
+relationship AutoDetected_fcfd8d68-7297-4a1b-8948-1ce4e6970dab
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: DimSalesTerritory.GeographyKey
+	toColumn: DimGeography.GeographyKey
+
+relationship AutoDetected_e3e9ea56-d525-44cf-a290-d35eb307ffa0
+	fromColumn: DimSalesTerritory.EmployeeKey
+	toColumn: DimEmployee.EmployeeKey
+
+relationship AutoDetected_bad74661-0773-4b51-be1b-90aafab222d5
+	fromColumn: DimStore.GeographyKey
+	toColumn: DimGeography.GeographyKey
+
+relationship AutoDetected_12f3e8cb-9d23-4613-bb36-49be2981c114
+	isActive: false
+	fromColumn: DimStore.EmployeeKey
+	toColumn: DimEmployee.EmployeeKey
+
+relationship AutoDetected_82daa901-5785-4191-af9e-4f821d697e8d
+	crossFilteringBehavior: bothDirections
+	fromCardinality: one
+	fromColumn: DimStore.EntityKey
+	toColumn: DimEntity.EntityKey
+
+relationship AutoDetected_f39bd7d0-e42b-4f81-879a-e82be13c22bb
+	fromColumn: DimMachine.StoreKey
+	toColumn: DimStore.StoreKey
+
+relationship AutoDetected_b3cbd2ab-8909-4910-bcda-318e5fb17268
+	fromColumn: FactExchangeRate.CurrencyKey
+	toColumn: DimCurrency.CurrencyKey
+
+relationship AutoDetected_99c712e2-ea68-40ad-ba78-89e22cd8bcc6
+	fromColumn: FactInventory.CurrencyKey
+	toColumn: DimCurrency.CurrencyKey
+
+relationship AutoDetected_fffcbcbd-2bf8-448d-84e0-6384204bc518
+	fromColumn: FactInventory.StoreKey
+	toColumn: DimStore.StoreKey
+
+relationship AutoDetected_9054627d-0e6b-47d1-911e-1637c6b0e0ac
+	fromColumn: FactInventory.ProductKey
+	toColumn: DimProduct.ProductKey
+
+relationship AutoDetected_89be8974-aada-4822-bad5-6b08e109c082
+	fromColumn: FactITMachine.MachineKey
+	toColumn: DimMachine.MachineKey
+
+relationship AutoDetected_7fc040ba-7ab7-4ec7-8231-5fbfa656e2df
+	fromColumn: FactITSLA.MachineKey
+	toColumn: DimMachine.MachineKey
+
+relationship AutoDetected_d51132ab-52f2-4cb7-a4c3-5b3d35c15f6b
+	isActive: false
+	fromColumn: FactITSLA.StoreKey
+	toColumn: DimStore.StoreKey
+
+relationship AutoDetected_961b32fc-5959-49fe-98d9-7193d42a5251
+	fromColumn: FactITSLA.OutageKey
+	toColumn: DimOutage.OutageKey
+
+relationship AutoDetected_7651c3ab-eaf4-4c21-bf28-a09810000bfc
+	fromColumn: FactOnlineSales.CurrencyKey
+	toColumn: DimCurrency.CurrencyKey
+
+relationship AutoDetected_eb11758d-92c8-45f7-ae9b-d288dfc94679
+	fromColumn: FactOnlineSales.CustomerKey
+	toColumn: DimCustomer.CustomerKey
+
+relationship AutoDetected_40e999cd-63b4-4c66-a119-ca7907debe42
+	isActive: false
+	fromColumn: FactOnlineSales.StoreKey
+	toColumn: DimStore.StoreKey
+
+relationship AutoDetected_b055834e-75bc-41a0-bfe6-c579691e7ace
+	fromColumn: FactOnlineSales.ProductKey
+	toColumn: DimProduct.ProductKey
+
+relationship AutoDetected_e5611127-c6a2-4133-84d7-72f60c437ff4
+	fromColumn: FactOnlineSales.PromotionKey
+	toColumn: DimPromotion.PromotionKey
+
+relationship AutoDetected_003b66c0-a229-42b6-9be6-37eb3f5d6080
+	fromColumn: FactSales.channelKey
+	toColumn: DimChannel.ChannelKey
+
+relationship AutoDetected_cf46ad22-56f9-4d47-9520-ee40749c0410
+	fromColumn: FactSales.CurrencyKey
+	toColumn: DimCurrency.CurrencyKey
+
+relationship AutoDetected_c4263df1-b0d7-4596-8587-81fb9f0ee6a0
+	fromColumn: FactSales.StoreKey
+	toColumn: DimStore.StoreKey
+
+relationship AutoDetected_9f0f0797-0d70-4ae2-8ca9-bfca080b8bda
+	fromColumn: FactSales.ProductKey
+	toColumn: DimProduct.ProductKey
+
+relationship AutoDetected_57e23fa2-7338-4ec8-a5c2-2b7b76f310c3
+	fromColumn: FactSales.PromotionKey
+	toColumn: DimPromotion.PromotionKey
+
+relationship AutoDetected_211cfb97-49d0-472f-8d3b-5491dd386b2e
+	fromColumn: FactSalesQuota.ChannelKey
+	toColumn: DimChannel.ChannelKey
+
+relationship AutoDetected_0a211781-1289-43f2-9cf3-aef68a50a928
+	fromColumn: FactSalesQuota.CurrencyKey
+	toColumn: DimCurrency.CurrencyKey
+
+relationship AutoDetected_02ed065b-05e8-4168-9d1f-9e3676476cc9
+	fromColumn: FactSalesQuota.StoreKey
+	toColumn: DimStore.StoreKey
+
+relationship AutoDetected_06cd6f36-f4bb-4f86-8738-bd47a9071592
+	fromColumn: FactSalesQuota.ProductKey
+	toColumn: DimProduct.ProductKey
+
+relationship AutoDetected_0fc628f2-3bdc-449d-a0f1-13caf1fa97de
+	fromColumn: FactSalesQuota.ScenarioKey
+	toColumn: DimScenario.ScenarioKey
+
+relationship AutoDetected_f518ddcd-e0bb-4591-a406-e1c180c12614
+	fromColumn: FactStrategyPlan.AccountKey
+	toColumn: DimAccount.AccountKey
+
+relationship AutoDetected_f7cd4d6d-2e6e-4ebd-b66c-345739e2acbc
+	fromColumn: FactStrategyPlan.CurrencyKey
+	toColumn: DimCurrency.CurrencyKey
+
+relationship AutoDetected_e4bc0ace-3878-4d1c-8acc-b00e2acfe9de
+	fromColumn: FactStrategyPlan.EntityKey
+	toColumn: DimEntity.EntityKey
+
+relationship AutoDetected_cbd99aef-67fb-4485-a060-fb0bc5ebd873
+	fromColumn: FactStrategyPlan.ProductCategoryKey
+	toColumn: DimProductCategory.ProductCategoryKey
+
+relationship AutoDetected_1eae39a7-5207-4436-99cb-b5d71eb9e1f6
+	fromColumn: FactStrategyPlan.ScenarioKey
+	toColumn: DimScenario.ScenarioKey
+
+relationship 738af2c5-7e98-9c33-5b67-c58561b3666a
+	fromColumn: '_Date Periods'.Type
+	toColumn: '_Date Period Selector'.Type
+
+relationship 5c58f20a-7924-3c14-01e1-7c6dfbeebd17
+	fromColumn: '_Date Periods'.Date
+	toColumn: DimCalendar.DateKey
+
+relationship 6503c99c-0acd-9fa4-e6a2-c60a731a3231
+	fromColumn: FactSales.DateKey
+	toColumn: DimCalendar.DateKey
+
+relationship 85bfbfd2-3113-06fd-65f3-1d55b5935d8b
+	fromColumn: FactOnlineSales.DateKey
+	toColumn: DimCalendar.DateKey
+
+relationship AutoDetected_a5f61a7c-bebc-4238-ac61-c9f2becd077a
+	isActive: false
+	fromColumn: FactSales.OnlineSalesKey
+	toColumn: FactOnlineSales.OnlineSalesKey
+

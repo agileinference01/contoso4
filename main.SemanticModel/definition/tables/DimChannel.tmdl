@@ -1,0 +1,40 @@
+table DimChannel
+	lineageTag: 49940c79-61fc-4e6a-93b1-dabd04803a55
+
+	column ChannelKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 1ae117e7-30a2-46cf-8d95-9417ec3bb10b
+		summarizeBy: none
+		sourceColumn: ChannelKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChannelName
+		dataType: string
+		lineageTag: 13321b3e-fde6-4b80-a80a-e980f6f4f643
+		summarizeBy: none
+		sourceColumn: ChannelName
+
+		annotation SummarizationSetBy = Automatic
+
+	column ChannelDescription
+		dataType: string
+		lineageTag: 21491294-dc79-406e-9692-7b2e7821a5c2
+		summarizeBy: none
+		sourceColumn: ChannelDescription
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimChannel = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\DimChannel.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ChannelKey", Int64.Type}, {"ChannelName", type text}, {"ChannelDescription", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

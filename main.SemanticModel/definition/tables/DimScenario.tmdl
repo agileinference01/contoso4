@@ -1,0 +1,32 @@
+table DimScenario
+	lineageTag: 4b0fb341-1cdb-47e4-8d37-5a83cb1147c9
+
+	column ScenarioKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 22eebf94-92ca-431a-a963-dacb87cf442d
+		summarizeBy: none
+		sourceColumn: ScenarioKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ScenarioName
+		dataType: string
+		lineageTag: 38840f46-cc3d-4c3a-bd61-96ca10bcccc5
+		summarizeBy: none
+		sourceColumn: ScenarioName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimScenario = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\DimScenario.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"ScenarioKey", Int64.Type}, {"ScenarioName", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

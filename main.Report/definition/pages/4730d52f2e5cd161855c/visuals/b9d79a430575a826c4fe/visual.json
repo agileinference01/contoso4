@@ -1,0 +1,38 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "b9d79a430575a826c4fe",
+  "position": {
+    "x": 900.46511627906978,
+    "y": 180.46511627906978,
+    "z": 5012,
+    "height": 205.58139534883722,
+    "width": 379.53488372093022,
+    "tabOrder": 23
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0013_Previous Period Interval Label"
+                }
+              },
+              "queryRef": "_Measures.0013_Previous Period Interval Label",
+              "nativeQueryRef": "0013_Previous Period Interval Label"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

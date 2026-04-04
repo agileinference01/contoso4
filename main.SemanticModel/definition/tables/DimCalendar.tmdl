@@ -1,0 +1,214 @@
+table DimCalendar
+	lineageTag: 3354e75b-a581-4271-9326-cb429e0ced85
+
+	column DateKey
+		formatString: Short Date
+		lineageTag: f320a2fe-11a7-42cc-ac3c-c95db7f792eb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[DateKey]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarYear
+		formatString: 0
+		lineageTag: 3bd4e293-1918-4241-810a-fc9e237ecbdf
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: DimDate[CalendarYear]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarYearLabel
+		lineageTag: 11b3a0d6-a7f4-4bce-8155-935ec3747ee5
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[CalendarYearLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarHalfYearLabel
+		lineageTag: 5f89d98e-639f-4640-8b3e-4088eb7a2e1b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[CalendarHalfYearLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarQuarterLabel
+		lineageTag: d00c80ce-ef8d-47ef-9b89-ecc72e6c3f86
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[CalendarQuarterLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarMonthLabel
+		lineageTag: 59976122-9f7a-4ea3-bc1f-19059294f533
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[CalendarMonthLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarWeekLabel
+		lineageTag: 2712e812-30e4-4a9b-8f6a-11a2baeb90eb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[CalendarWeekLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarDayOfWeekLabel
+		lineageTag: b5878eb5-f5bf-4af9-b857-4228baa804af
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[CalendarDayOfWeekLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalYear
+		formatString: 0
+		lineageTag: b4519262-b0c8-45d2-819e-52ff15bb5c0f
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: DimDate[FiscalYear]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalYearLabel
+		lineageTag: d43b64f2-520d-4db1-ba35-89d570947d08
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[FiscalYearLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalHalfYearLabel
+		lineageTag: 038ca888-e402-4c51-8c6a-7025b39369c9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[FiscalHalfYearLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalQuarterLabel
+		lineageTag: 14c74e8e-30ca-4ef1-b33a-e1ecc732acd9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[FiscalQuarterLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column FiscalMonthLabel
+		lineageTag: a4d2b5f8-7581-4b16-a539-e977c6d0a3b3
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[FiscalMonthLabel]
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsWorkDay
+		lineageTag: d414c79d-02ae-4c2d-b4fc-9506e3afe464
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[IsWorkDay]
+
+		annotation SummarizationSetBy = Automatic
+
+	column IsHoliday
+		lineageTag: f52dce30-cc40-4af7-be20-a1a98dcf8b4f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[IsHoliday]
+
+		annotation SummarizationSetBy = Automatic
+
+	column EuropeSeason
+		lineageTag: 47aaa553-331a-471b-bbbe-a61404cd5915
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[EuropeSeason]
+
+		annotation SummarizationSetBy = Automatic
+
+	column NorthAmericaSeason
+		lineageTag: 0cac0f0a-784f-45e4-8b4e-0dd4ac0bd97a
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[NorthAmericaSeason]
+
+		annotation SummarizationSetBy = Automatic
+
+	column AsiaSeason
+		lineageTag: ec1dbf9d-713d-448b-ac57-218d4823bae7
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[AsiaSeason]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNumber
+		formatString: 0
+		lineageTag: 5c77529d-ec11-4fec-90d5-b1c054fc2618
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: DimDate[MonthNumber]
+
+		annotation SummarizationSetBy = Automatic
+
+	column CalendarDayOfWeekNumber
+		formatString: 0
+		lineageTag: 5818a36c-7ea8-4559-a6d8-cd4dd7011678
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: DimDate[CalendarDayOfWeekNumber]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Interval Week Label'
+		formatString: General Date
+		lineageTag: f4c173e1-b2ae-4daf-b2ec-7a8d209fcbc4
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[Interval Week Label]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Interval Month Label'
+		lineageTag: ffce44ec-551c-40db-ac5a-dfe29849ed32
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[Interval Month Label]
+		sortByColumn: 'Month Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Interval Quarter Label'
+		lineageTag: d1561cfa-cdb8-4fb8-b8e2-3698b5342fdb
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: DimDate[Interval Quarter Label]
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Sort Order'
+		formatString: 0
+		lineageTag: 4b6b0479-070e-43e6-b5be-740272118b3a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: DimDate[Month Sort Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimCalendar = calculated
+		mode: import
+		source =
+				
+				var _max = MAX(CALCULATE(MAX(FactOnlineSales[DateKey]), all(FactOnlineSales[DateKey])), CALCULATE(MAX(FactSales[DateKey]), all(FactSales[DateKey])))
+				var _min = Min(CALCULATE(Min(FactOnlineSales[DateKey]), all(FactOnlineSales[DateKey])), CALCULATE(min(FactSales[DateKey]), all(FactSales[DateKey])))
+				RETURN
+				FILTER(DimDate, DimDate[DateKey]>=_min && DimDate[DateKey]<=_max)
+
+	annotation PBI_Id = db51baec8ffc42ea9b43efccdb96bf93
+

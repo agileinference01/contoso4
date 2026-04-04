@@ -1,0 +1,69 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "c96afeea9f3106150773",
+  "position": {
+    "x": 396.27906976744185,
+    "y": 424.18604651162792,
+    "z": 5013,
+    "height": 254.88372093023256,
+    "width": 430.69767441860466,
+    "tabOrder": 24
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimCalendar"
+                    }
+                  },
+                  "Property": "Interval Month Label"
+                }
+              },
+              "queryRef": "DimCalendar.Interval Month Label",
+              "nativeQueryRef": "Interval Month Label"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0012_Selected Measure Current Period"
+                }
+              },
+              "queryRef": "_Measures.0012_Selected Measure Current Period",
+              "nativeQueryRef": "0012_Selected Measure Current Period"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "DimCalendar"
+                  }
+                },
+                "Property": "Interval Month Label"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

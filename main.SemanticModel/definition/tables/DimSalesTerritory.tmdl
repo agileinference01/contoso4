@@ -1,0 +1,100 @@
+table DimSalesTerritory
+	lineageTag: 73807bdc-2ad3-46a0-b4c4-21a7e3627ffa
+
+	column SalesTerritoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d1c7dc4-e62f-4aa1-8675-b9d52458c70c
+		summarizeBy: count
+		sourceColumn: SalesTerritoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 806a7e72-ca8b-484b-ad23-467182b2e962
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesTerritoryName
+		dataType: string
+		lineageTag: 5730610e-33ae-4abb-9111-573b927b5fe9
+		summarizeBy: none
+		sourceColumn: SalesTerritoryName
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesTerritoryRegion
+		dataType: string
+		lineageTag: 4c2794d9-b08a-4e87-8d27-d5431319d5a4
+		summarizeBy: none
+		sourceColumn: SalesTerritoryRegion
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesTerritoryCountry
+		dataType: string
+		lineageTag: 7c353f52-25ff-4fbc-a22c-568bb6d6f474
+		summarizeBy: none
+		sourceColumn: SalesTerritoryCountry
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesTerritoryGroup
+		dataType: string
+		lineageTag: f67c9ff8-84e9-4e45-a47c-578cffaca327
+		summarizeBy: none
+		sourceColumn: SalesTerritoryGroup
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesTerritoryLevel
+		dataType: int64
+		formatString: 0
+		lineageTag: fb37e999-cc00-481c-b5f9-b854ad042f76
+		summarizeBy: sum
+		sourceColumn: SalesTerritoryLevel
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesTerritoryManager
+		dataType: int64
+		formatString: 0
+		lineageTag: 7cad2f14-d54d-4d35-8aa4-59be99a2f93c
+		summarizeBy: sum
+		sourceColumn: SalesTerritoryManager
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: b6fcdbb5-8573-4246-a4df-4bc7fb24be17
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column EmployeeKey
+		dataType: int64
+		formatString: 0
+		lineageTag: d6329e13-ce53-4f0b-9400-13b20d3befd0
+		summarizeBy: none
+		sourceColumn: EmployeeKey
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimSalesTerritory = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\DimSalesTerritory.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"SalesTerritoryKey", Int64.Type}, {"GeographyKey", Int64.Type}, {"SalesTerritoryName", type text}, {"SalesTerritoryRegion", type text}, {"SalesTerritoryCountry", type text}, {"SalesTerritoryGroup", type text}, {"SalesTerritoryLevel", Int64.Type}, {"SalesTerritoryManager", Int64.Type}, {"Status", type text}, {"EmployeeKey", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

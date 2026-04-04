@@ -1,0 +1,64 @@
+table DimGeography
+	lineageTag: 8c02c95a-f83b-462b-aa1e-8598fae689ca
+
+	column GeographyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: ebc6eecd-7c9f-42d5-b083-392f31dc4c05
+		summarizeBy: none
+		sourceColumn: GeographyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column GeographyType
+		dataType: string
+		lineageTag: 05290c0e-24f8-4c37-bf25-68d857940f49
+		summarizeBy: none
+		sourceColumn: GeographyType
+
+		annotation SummarizationSetBy = Automatic
+
+	column ContinentName
+		dataType: string
+		lineageTag: 469dacc4-59d6-49c6-8b1d-29b9b82c891a
+		summarizeBy: none
+		sourceColumn: ContinentName
+
+		annotation SummarizationSetBy = Automatic
+
+	column CityName
+		dataType: string
+		lineageTag: f9031cac-fc8a-4d1b-8a11-e62953a6cec7
+		summarizeBy: none
+		sourceColumn: CityName
+
+		annotation SummarizationSetBy = Automatic
+
+	column StateProvinceName
+		dataType: string
+		lineageTag: 125dca0e-f396-4f1d-88c8-1f3bbae3f724
+		summarizeBy: none
+		sourceColumn: StateProvinceName
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionCountryName
+		dataType: string
+		lineageTag: 07e51f9d-ccbe-48a6-b739-ebdd5732e97f
+		summarizeBy: none
+		sourceColumn: RegionCountryName
+
+		annotation SummarizationSetBy = Automatic
+
+	partition DimGeography = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\DimGeography.csv"),[Delimiter=",", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"GeographyKey", Int64.Type}, {"GeographyType", type text}, {"ContinentName", type text}, {"CityName", type text}, {"StateProvinceName", type text}, {"RegionCountryName", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

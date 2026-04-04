@@ -1,0 +1,135 @@
+table FactInventory
+	lineageTag: de9d26f2-c554-4606-b31b-6c8172e41b6f
+
+	column InventoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 95fd8f1d-afc9-4470-8355-8e6238cc11e7
+		summarizeBy: count
+		sourceColumn: InventoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 64564391-7db5-402f-9dc1-f7c2a7af43a1
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column StoreKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ab7cdc5-fbc0-4301-b9f6-319fe418c148
+		summarizeBy: none
+		sourceColumn: StoreKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 184cf318-baa9-4628-8b61-20ee2485d13e
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrencyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: b5469f96-c2c8-4385-b709-9beb368d7556
+		summarizeBy: none
+		sourceColumn: CurrencyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column OnHandQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 67c23aa2-6fe8-4c08-af87-b113434b5f89
+		summarizeBy: sum
+		sourceColumn: OnHandQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column OnOrderQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 4be2b6e6-adae-4201-9980-6d9796d17390
+		summarizeBy: sum
+		sourceColumn: OnOrderQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column SafetyStockQuantity
+		dataType: int64
+		formatString: 0
+		lineageTag: e70df87b-edfd-4003-99a6-889c5a135544
+		summarizeBy: sum
+		sourceColumn: SafetyStockQuantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column UnitCost
+		dataType: double
+		lineageTag: 03960a6f-7d05-4919-9d1b-1ffe1cf31389
+		summarizeBy: sum
+		sourceColumn: UnitCost
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DaysInStock
+		dataType: int64
+		formatString: 0
+		lineageTag: d69dcb6c-9072-4725-9a96-e2165ee4b95c
+		summarizeBy: sum
+		sourceColumn: DaysInStock
+
+		annotation SummarizationSetBy = Automatic
+
+	column MinDayInStock
+		dataType: int64
+		formatString: 0
+		lineageTag: 22415061-396b-4735-920d-74579934dac4
+		summarizeBy: sum
+		sourceColumn: MinDayInStock
+
+		annotation SummarizationSetBy = Automatic
+
+	column MaxDayInStock
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d108795-9f51-453f-96bc-1aa36368fa97
+		summarizeBy: sum
+		sourceColumn: MaxDayInStock
+
+		annotation SummarizationSetBy = Automatic
+
+	column Aging
+		dataType: int64
+		formatString: 0
+		lineageTag: e2f0141b-e89f-415f-9706-7f4316083b81
+		summarizeBy: sum
+		sourceColumn: Aging
+
+		annotation SummarizationSetBy = Automatic
+
+	partition FactInventory = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\FactInventory.csv"),[Delimiter=",", Columns=13, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"InventoryKey", Int64.Type}, {"DateKey", type date}, {"StoreKey", Int64.Type}, {"ProductKey", Int64.Type}, {"CurrencyKey", Int64.Type}, {"OnHandQuantity", Int64.Type}, {"OnOrderQuantity", Int64.Type}, {"SafetyStockQuantity", Int64.Type}, {"UnitCost", type number}, {"DaysInStock", Int64.Type}, {"MinDayInStock", Int64.Type}, {"MaxDayInStock", Int64.Type}, {"Aging", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

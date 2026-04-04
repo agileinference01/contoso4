@@ -1,0 +1,81 @@
+table '_Date Periods'
+	lineageTag: 8fbfc27d-1e37-4c13-8c02-8fa477f7df62
+
+	column Type
+		lineageTag: c12ce88c-a3fc-4ced-a1a3-8390cb2869dc
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Type]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Date
+		formatString: General Date
+		lineageTag: 334a9b6f-7b32-4d37-847f-3e02d28b7570
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Order
+		formatString: 0
+		lineageTag: 21314aae-c3f2-49a6-a5a1-3ab5ca66690a
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Period
+		lineageTag: a2e64469-f903-4ea6-8afd-e8cc0105f7c9
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Period]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition '_Date Periods' = calculated
+		mode: import
+		source =
+				
+				UNION(
+				        SELECTCOLUMNS(
+				    DimCalendar,
+				    "Date", DimCalendar[DateKey],
+				    "Period", DimCalendar[DateKey],
+				    "Type", "Day",
+				    "Order", 1
+				),
+				        SELECTCOLUMNS(
+				    DimCalendar,
+				    "Date", DimCalendar[DateKey],
+				    "Period", DimCalendar[DateKey] - WEEKDAY(DimCalendar[DateKey],2) + 1,
+				    "Type", "Week",
+				    "Order", 2
+				),
+				    SELECTCOLUMNS(
+				    DimCalendar,
+				    "Date", DimCalendar[DateKey],
+				    "Period", FORMAT(DATE(YEAR([DateKey]), MONTH([DateKey]),1),"MMM-yyyy"),
+				    "Type", "Month",
+				    "Order", 3
+				),
+				    SELECTCOLUMNS(
+				    DimCalendar,
+				    "Date", DimCalendar[DateKey],
+				    "Period", "Q" & INT((MONTH(DimCalendar[DateKey])-1)/3) + 1 & "-" & FORMAT(DimCalendar[DateKey],"yyyy") ,
+				    "Type", "Quarter",
+				    "Order", 4
+				),
+				    SELECTCOLUMNS(
+				    DimCalendar,
+				    "Date", DimCalendar[DateKey],
+				    "Period", FORMAT(DimCalendar[DateKey],"yyyy") ,
+				    "Type", "Year",
+				    "Order", 5
+				)
+				)
+
+	annotation PBI_Id = 73a21c444ba948b0a6bd3f6d8f6108c9
+

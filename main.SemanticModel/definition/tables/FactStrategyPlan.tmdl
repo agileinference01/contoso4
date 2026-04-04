@@ -1,0 +1,90 @@
+table FactStrategyPlan
+	lineageTag: 346499c6-1e69-45dd-b4ee-c6d2c0feb4e0
+
+	column StrategyPlanKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 71045159-039b-455d-b9d1-d6ef2bbcfb8f
+		summarizeBy: count
+		sourceColumn: StrategyPlanKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 57aa6838-a339-48d0-a612-9ee60d2b0b3d
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column EntityKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 33b68a18-f0f7-415b-bd1c-c7801dd79378
+		summarizeBy: none
+		sourceColumn: EntityKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ScenarioKey
+		dataType: int64
+		formatString: 0
+		lineageTag: c567be11-87ea-4ae9-8fd9-5bad9572bb43
+		summarizeBy: none
+		sourceColumn: ScenarioKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column AccountKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 0a599080-5cbc-407d-870b-2c72b40959b8
+		summarizeBy: none
+		sourceColumn: AccountKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column CurrencyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: d9955d43-4f3c-4eb8-8aa0-20937321ae54
+		summarizeBy: none
+		sourceColumn: CurrencyKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductCategoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: be6978b8-0ba7-47c3-ab10-8e0bc3fadcb4
+		summarizeBy: none
+		sourceColumn: ProductCategoryKey
+
+		annotation SummarizationSetBy = Automatic
+
+	column Amount
+		dataType: double
+		lineageTag: ebbb84d5-38ab-49b2-8aa4-4aef8f295fe4
+		summarizeBy: sum
+		sourceColumn: Amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FactStrategyPlan = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\FactStrategyPlan.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"StrategyPlanKey", Int64.Type}, {"DateKey", type date}, {"EntityKey", Int64.Type}, {"ScenarioKey", Int64.Type}, {"AccountKey", Int64.Type}, {"CurrencyKey", Int64.Type}, {"ProductCategoryKey", Int64.Type}, {"Amount", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

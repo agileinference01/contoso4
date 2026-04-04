@@ -1,0 +1,51 @@
+table 'Interval Parameter'
+	lineageTag: e66a5f7c-e132-4953-b40e-7149154ae319
+
+	column 'Interval Parameter'
+		lineageTag: 810ff2df-74f4-4940-bc97-eba517c4414a
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'Interval Parameter Order'
+
+		relatedColumnDetails
+			groupByColumn: 'Interval Parameter Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Interval Parameter Fields'
+		isHidden
+		lineageTag: 499b56fd-0b72-4f01-8d47-556b0ecf992f
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'Interval Parameter Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Interval Parameter Order'
+		isHidden
+		formatString: 0
+		lineageTag: 4c2a3df0-35fd-488a-9be5-242a017c238a
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Interval Parameter' = calculated
+		mode: import
+		source =
+				{
+				    ("Daily", NAMEOF('DimCalendar'[DateKey]), 0),
+				    ("Weekly", NAMEOF('DimCalendar'[Interval Week Label]), 1),
+				    ("Monthly", NAMEOF('DimCalendar'[Interval Month Label]), 2),
+				    ("Quarterly", NAMEOF('DimCalendar'[Interval Quarter Label]), 3),
+				    ("Yearly", NAMEOF('DimCalendar'[CalendarYear]), 4)
+				}
+
+	annotation PBI_Id = 1774a833c8b64d658b86ab98219b59c1
+
