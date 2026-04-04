@@ -14,4 +14,38 @@ DEFINE
 			FILTER(_MeasureCatalog, _MeasureCatalog[Metric Name]=_measure)
 		)
 
+	FUNCTION FormatMeasure = (_measure : STRING) =>
+	SWITCH(_measure,
+		"Sales - Actual", "#,000",
+		"Sales - Goal (FactSalesQuota)", "#,000",
+		"Sales - Goal Achievement %", "0.00%",
+		"Sales - Strategic Plan Goal","#,000",
+		"Sales - vs Strategic Plan %",  "0.00%",
+		"Units - Actual", "#,000",
+		"Units - Goal (FactSalesQuota)", "#,000",
+		"Units - Goal Achievement %",  "0.00%",
+		"Units - Store", "#,000",
+		"Units - Online", "#,000",
+		"Gross Profit - Goal Achievement %",  "0.00%",
+		"Gross Margin %",  "0.00%",
+		"Sales - Store Channel", "#,000",
+		"Sales - Online Channel", "#,000",
+		"Online Sales % of Total",  "0.00%",
+		"Store Sales % of Total",  "0.00%",
+		"Discount Rate % of Sales",  "0.00%",
+		"Return Rate % of Sales",  "0.00%",
+		"Customers - Unique", "#,000",
+		"Stores - Count", "#,000",
+		"Machine - Count with Downtime", "#,000",
+		"Machine - Outage Incidents", "#,000",
+		"Machine - Preventive % of Total Cost",  "0.00%",
+		"Machine - SLA Uptime Goal %",  "0.00%",
+		"Machine - Actual Uptime %",  "0.00%",
+		"Machine - SLA Compliance %",  "0.00%",
+		"HR - Employees Total", "#,000",
+		"#,000.00"
+)
+
+
+
 	

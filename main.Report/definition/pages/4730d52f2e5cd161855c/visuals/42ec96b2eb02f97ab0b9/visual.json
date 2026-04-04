@@ -98,6 +98,20 @@
               },
               "queryRef": "_Measures.0006_Max Date Previous Period",
               "nativeQueryRef": "0006_Max Date Previous Period"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0000_Test Function"
+                }
+              },
+              "queryRef": "DimAccount.0000_Test Function",
+              "nativeQueryRef": "0000_Test Function"
             }
           ]
         }
