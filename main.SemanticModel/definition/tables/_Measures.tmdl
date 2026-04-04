@@ -371,7 +371,7 @@ table _Measures
 		displayFolder: _Non Measures
 		lineageTag: 089e1e66-7ce3-4320-92e6-92d375eb1aa1
 
-	measure '0009_Selected Measure' = ```
+	measure '0009_Selected Measure Actual' = ```
 			
 			
 			var _sel = SELECTEDVALUE('_MeasureCatalog'[Metric Name])
@@ -415,7 +415,7 @@ table _Measures
 			VAR _max = max(DimCalendar[DateKey])
 			VAR _min = [0004_Min Date Curent Period]
 			RETURN
-			CALCULATE([0009_Selected Measure], DimCalendar[DateKey]>=_min && DimCalendar[DateKey]<=_max)
+			CALCULATE([0009_Selected Measure Actual], DimCalendar[DateKey]>=_min && DimCalendar[DateKey]<=_max)
 		displayFolder: _Non Measures
 		lineageTag: 87a74810-f85c-443f-8cca-992540024167
 
@@ -450,6 +450,25 @@ table _Measures
 			```
 		displayFolder: _Non Measures
 		lineageTag: 6871146c-cffc-4c99-bc9d-08de485d3eca
+
+	measure '0009_Selected Measure Goal' = ```
+			
+			
+			var _sel = SELECTEDVALUE('_MeasureCatalog'[Metric Name])
+			return
+			SWITCH(_sel,
+			    "Sales - Actual", [0101_Sales - Goal (FactSalesQuota)],
+			    "Units - Actual", [0201_Units - Goal (FactSalesQuota)],
+			    "Gross Profit - Actual", [0301_Gross Profit - Goal],
+			    "Gross Margin %", DIVIDE([0301_Gross Profit - Goal], [0101_Sales - Goal (FactSalesQuota)], BLANK()),
+			    BLANK()
+			)
+			
+			```
+		displayFolder: _Non Measures
+		lineageTag: 374abe61-1e12-4737-bcf1-0855b17273e6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	partition _Measures = m
 		mode: import

@@ -59,11 +59,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "0009_Selected Measure"
+                  "Property": "0009_Selected Measure Actual"
                 }
               },
               "queryRef": "_Measures.0009_Selected Measure",
-              "nativeQueryRef": "0009_Selected Measure"
+              "nativeQueryRef": "0009_Selected Measure Actual"
             }
           ]
         }
@@ -115,10 +115,24 @@
                 "Entity": "_Measures"
               }
             },
-            "Property": "0009_Selected Measure"
+            "Property": "0009_Selected Measure Actual"
           }
         },
         "type": "Advanced"
+      },
+      {
+        "name": "135c2e3d95fdc3cf3e1e",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "DimCalendar"
+              }
+            },
+            "Property": "Interval Week Label"
+          }
+        },
+        "type": "Categorical"
       }
     ]
   }

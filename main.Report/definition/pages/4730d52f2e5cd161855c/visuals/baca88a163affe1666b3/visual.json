@@ -73,7 +73,7 @@
                           [
                             {
                               "Literal": {
-                                "Value": "'Stores - Count'"
+                                "Value": "'Gross Margin %'"
                               }
                             }
                           ]
@@ -133,7 +133,7 @@
             "textSize": {
               "expr": {
                 "Literal": {
-                  "Value": "10D"
+                  "Value": "13D"
                 }
               }
             },
@@ -164,5 +164,77 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "3bf3cbfd25d3ee57f33d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_MeasureCatalog"
+              }
+            },
+            "Property": "Metric Name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "e2044a717a188252f81d",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_MeasureCatalog"
+              }
+            },
+            "Property": "SLA"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "_",
+              "Entity": "_MeasureCatalog",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "_"
+                          }
+                        },
+                        "Property": "SLA"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Yes'"
+                        }
+                      }
+                    ]
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "howCreated": "User"
+      }
+    ]
   }
 }
