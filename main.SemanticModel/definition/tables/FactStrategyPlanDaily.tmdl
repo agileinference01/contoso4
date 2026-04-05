@@ -1,0 +1,73 @@
+table FactStrategyPlanDaily
+	lineageTag: c96de946-21c2-4342-b49c-928e3fe91d40
+
+	column StrategyPlanKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 7e529c7e-35d1-448f-9eef-26ab300c8238
+		summarizeBy: none
+		sourceColumn: StrategyPlanKey
+
+	column DateKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 47a377af-631d-4a6f-9152-90ba4124da6c
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column EntityKey
+		dataType: int64
+		formatString: 0
+		lineageTag: d1ecf441-58a7-4a57-93d7-6ae5c3fe86fc
+		summarizeBy: none
+		sourceColumn: EntityKey
+
+	column ScenarioKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 5a39635a-b6bb-4193-b069-01095437a403
+		summarizeBy: none
+		sourceColumn: ScenarioKey
+
+	column AccountKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 50088485-2a95-424b-a7c5-1d4f60fc0c66
+		summarizeBy: none
+		sourceColumn: AccountKey
+
+	column CurrencyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 9c318e55-1ee8-4083-9238-f80921fdfab6
+		summarizeBy: none
+		sourceColumn: CurrencyKey
+
+	column ProductCategoryKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 88530856-4667-4592-89b1-229481a715f1
+		summarizeBy: none
+		sourceColumn: ProductCategoryKey
+
+	column AmountDaily
+		dataType: double
+		lineageTag: 16b80945-8fd4-44c3-aa85-713d9a9aca09
+		summarizeBy: sum
+		sourceColumn: AmountDaily
+
+	partition FactStrategyPlanDaily = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\FactStrategyPlan.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"StrategyPlanKey", Int64.Type}, {"DateKey", type date}, {"EntityKey", Int64.Type}, {"ScenarioKey", Int64.Type}, {"AccountKey", Int64.Type}, {"CurrencyKey", Int64.Type}, {"ProductCategoryKey", Int64.Type}, {"Amount", type number}}),
+				    #"Added DaysInMonth" = Table.AddColumn(#"Changed Type", "DaysInMonth", each Date.DaysInMonth([DateKey]), Int64.Type),
+				    #"Added AmountDaily" = Table.AddColumn(#"Added DaysInMonth", "AmountDaily", each [Amount] / [DaysInMonth], type number),
+				    #"Removed Original Columns" = Table.RemoveColumns(#"Added AmountDaily", {"Amount", "DaysInMonth"})
+				in
+				    #"Removed Original Columns"
+

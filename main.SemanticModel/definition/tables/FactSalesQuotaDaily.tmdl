@@ -1,0 +1,87 @@
+table FactSalesQuotaDaily
+	lineageTag: fa7c17e8-8168-4566-9cbe-4dc0507ae54d
+
+	column SalesQuotaKey
+		dataType: int64
+		formatString: 0
+		lineageTag: a25f7d5a-2427-4971-bf23-efc0a0e9fe88
+		summarizeBy: none
+		sourceColumn: SalesQuotaKey
+
+	column ChannelKey
+		dataType: int64
+		formatString: 0
+		lineageTag: fad548ee-8b59-4ed5-bbc5-fe3458778762
+		summarizeBy: none
+		sourceColumn: ChannelKey
+
+	column StoreKey
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ba36882-4ea5-482b-94f6-229a84c3e6a3
+		summarizeBy: none
+		sourceColumn: StoreKey
+
+	column ProductKey
+		dataType: int64
+		formatString: 0
+		lineageTag: feab2f13-d19a-4fab-a4a3-27efc88ac85c
+		summarizeBy: none
+		sourceColumn: ProductKey
+
+	column DateKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cfa2bab7-747c-4b29-88d1-4f142efe1e28
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CurrencyKey
+		dataType: int64
+		formatString: 0
+		lineageTag: e3229cc5-ab1f-4a03-874e-8169e0592a70
+		summarizeBy: none
+		sourceColumn: CurrencyKey
+
+	column ScenarioKey
+		dataType: int64
+		formatString: 0
+		lineageTag: f2082d17-35fe-433d-862d-9e91a03a89a6
+		summarizeBy: none
+		sourceColumn: ScenarioKey
+
+	column SalesQuantityQuotaDaily
+		dataType: double
+		lineageTag: ba3db42b-e0bb-448d-b035-d2c365eb1eb9
+		summarizeBy: sum
+		sourceColumn: SalesQuantityQuotaDaily
+
+	column SalesAmountQuotaDaily
+		dataType: double
+		lineageTag: 099b3973-2f40-4b92-82ac-fca25105b158
+		summarizeBy: sum
+		sourceColumn: SalesAmountQuotaDaily
+
+	column GrossMarginQuotaDaily
+		dataType: double
+		lineageTag: 8a2e955f-e17a-4697-ae42-2e3df3744bd4
+		summarizeBy: sum
+		sourceColumn: GrossMarginQuotaDaily
+
+	partition FactSalesQuotaDaily = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\PHUyJo3\OneDrive - NESTLE\Documents\projects\data\contoso\FactSalesQuota.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"SalesQuotaKey", Int64.Type}, {"ChannelKey", Int64.Type}, {"StoreKey", Int64.Type}, {"ProductKey", Int64.Type}, {"DateKey", type date}, {"CurrencyKey", Int64.Type}, {"ScenarioKey", Int64.Type}, {"SalesQuantityQuota", Int64.Type}, {"SalesAmountQuota", type number}, {"GrossMarginQuota", type number}}),
+				    #"Added DaysInMonth" = Table.AddColumn(#"Changed Type", "DaysInMonth", each Date.DaysInMonth([DateKey]), Int64.Type),
+				    #"Added SalesQuantityQuotaDaily" = Table.AddColumn(#"Added DaysInMonth", "SalesQuantityQuotaDaily", each [SalesQuantityQuota] / [DaysInMonth], type number),
+				    #"Added SalesAmountQuotaDaily" = Table.AddColumn(#"Added SalesQuantityQuotaDaily", "SalesAmountQuotaDaily", each [SalesAmountQuota] / [DaysInMonth], type number),
+				    #"Added GrossMarginQuotaDaily" = Table.AddColumn(#"Added SalesAmountQuotaDaily", "GrossMarginQuotaDaily", each [GrossMarginQuota] / [DaysInMonth], type number),
+				    #"Removed Original Columns" = Table.RemoveColumns(#"Added GrossMarginQuotaDaily", {"SalesQuantityQuota", "SalesAmountQuota", "GrossMarginQuota", "DaysInMonth"})
+				in
+				    #"Removed Original Columns"
+

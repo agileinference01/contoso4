@@ -8,7 +8,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["DimAccount","DimChannel","DimCurrency","DimCustomer","DimDate","DimEmployee","DimEntity","DimGeography","DimMachine","DimOutage","DimProduct","DimProductCategory","DimProductSubcategory","DimPromotion","DimSalesTerritory","DimScenario","DimStore","FactExchangeRate","FactInventory","FactITMachine","FactITSLA","FactOnlineSales","FactSales","FactSalesQuota","FactStrategyPlan","_Measures","_Date Period Selector","_MeasureCatalog"]
+annotation PBI_QueryOrder = ["DimAccount","DimChannel","DimCurrency","DimCustomer","DimDate","DimEmployee","DimEntity","DimGeography","DimMachine","DimOutage","DimProduct","DimProductCategory","DimProductSubcategory","DimPromotion","DimSalesTerritory","DimScenario","DimStore","FactExchangeRate","FactInventory","FactITMachine","FactITSLA","FactOnlineSales","FactSales","FactSalesQuota","FactStrategyPlan","_Measures","_Date Period Selector","_MeasureCatalog","FactSalesQuotaDaily","FactStrategyPlanDaily"]
 
 annotation PBI_ProTooling = ["DevMode","MCP-PBIModeling","TMDLView_Desktop","DaxQueryView_Desktop"]
 
@@ -44,6 +44,8 @@ ref table 'Interval Parameter'
 ref table DimCalendar
 ref table _MeasureCatalog
 ref table 'Select Measure Parameter'
+ref table FactSalesQuotaDaily
+ref table FactStrategyPlanDaily
 
 ref cultureInfo en-US
 

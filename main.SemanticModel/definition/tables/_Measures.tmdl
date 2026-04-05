@@ -6,7 +6,7 @@ table _Measures
 		displayFolder: _Sales
 		lineageTag: 16272a78-73be-429e-ad65-81f3163ddcea
 
-	measure '0101_Sales - Goal (FactSalesQuota)' = CALCULATE(SUM(FactSalesQuota[SalesAmountQuota]), FactSalesQuota[ScenarioKey]=2)
+	measure '0101_Sales - Goal (FactSalesQuota)' = CALCULATE(SUM(FactSalesQuotaDaily[SalesAmountQuotaDaily]), FactSalesQuotaDaily[ScenarioKey]=2)
 		formatString: $#,0.00
 		displayFolder: _Sales
 		lineageTag: 653dd41e-0a30-48ff-8806-0ce4e83c0f74
@@ -16,7 +16,7 @@ table _Measures
 		displayFolder: _Sales
 		lineageTag: 2e544652-2925-4bd5-a73c-a151eea503dd
 
-	measure '0103_Sales - Strategic Plan Goal' = SUM(FactStrategyPlan[Amount])
+	measure '0103_Sales - Strategic Plan Goal' = SUM(FactStrategyPlanDaily[AmountDaily])
 		formatString: $#,0.00
 		displayFolder: _Sales
 		lineageTag: 072083ee-edd1-482b-8b5d-5eb02cbb6022
@@ -76,7 +76,7 @@ table _Measures
 		displayFolder: _Sales
 		lineageTag: a24d5818-ac40-4439-a092-8bf41bf59cc9
 
-	measure '0401_Sales - Online Channel' = SUM(FactOnlineSales[SalesAmount])
+	measure '0401_Sales - Online Channel' = CALCULATE(SUM(FactOnlineSales[SalesAmount]), FactSales[channelKey]=2)
 		formatString: $#,0.00
 		displayFolder: _Sales
 		lineageTag: 77d72f58-a497-4125-b975-374341417009
@@ -113,7 +113,7 @@ table _Measures
 
 	measure '0504_Cost of Goods Sold' = SUM(FactSales[TotalCost]) + SUM(FactOnlineSales[TotalCost])
 		formatString: $#,0.00
-		displayFolder: _Sales
+		displayFolder: _Costs
 		lineageTag: 4153bc53-b772-48d1-b2fe-c027f6dd21e5
 
 	measure '0600_Customers - Unique' = DISTINCTCOUNT(FactSales[CustomerKey])
@@ -234,21 +234,23 @@ table _Measures
 	measure 0000_Blank = BLANK()
 		formatString: 0
 		displayFolder: _Non Measures
-		lineageTag: b9122142-3ab2-4039-bbc4-8bd11e799be0
+		lineageTag: 5cc3beda-a134-4d93-b97d-359910b26157
 
-	measure 0001_Username =
+	measure 0001_Username = ```
 			
-			var _email = USERPRINCIPALNAME()
-			var _pos = SEARCH("@", _email, 1, BLANK())
-			
+			 var _email = USERPRINCIPALNAME()
+			 VAR _AtPosition = SEARCH("@", _email, 1, BLANK())  -- Find position of "@"
 			RETURN
 			IF(
-			    NOT ISBLANK(_pos),
-			    LEFT(_email, _pos - 1),  -- Extract everything before "@"
+			    NOT ISBLANK(_AtPosition),
+			    LEFT(_email, _AtPosition - 1),  -- Extract everything before "@"
 			    BLANK()  -- Return blank if "@" not found
 			)
+			
+			
+			```
 		displayFolder: _Non Measures
-		lineageTag: d78b8f3c-20f4-445c-b7e3-8718d8b04eb9
+		lineageTag: 46affe3a-8f71-48de-8391-878cb9643aba
 
 	measure '0002_Max Date' = max(DimCalendar[DateKey])
 		formatString: Short Date
@@ -522,6 +524,240 @@ table _Measures
 				VAR _sel = SELECTEDVALUE(_MeasureCatalog[Metric Name])
 				RETURN
 				FormatMeasure(_sel)
+
+	/// Total units sold across all channels
+	measure '0101_Total Units Sold' = SUM(FactSales[SalesQuantity])
+		formatString: #,0
+		displayFolder: _Units
+		lineageTag: b0eb1b64-cb7b-4fff-bd87-f2037ad591c7
+
+	/// Return rate as percentage of sales
+	measure '0105_Return Rate %' = IFERROR([0502_Total Returns] / [0501_Total Sales], 0)
+		formatString: 0.00%
+		displayFolder: _Returns
+		lineageTag: 37c3a877-4618-486a-a07d-8b215b424f76
+
+	/// Actual units vs quantity quota
+	measure '0111_Quantity Variance' = [0101_Total Units Sold]- [0112_Quantity Quota]
+		formatString: 0
+		displayFolder: _Units
+		lineageTag: 70a72663-52bc-4d05-b102-59d7382c6e17
+
+	/// Total quantity quota
+	measure '0112_Quantity Quota' = SUM(FactSalesQuotaDaily[SalesQuantityQuotaDaily])
+		formatString: #,0
+		displayFolder: _Units
+		lineageTag: 6b9a42ed-6c6f-4a54-b00b-00dcd505e7b7
+
+	/// Units sold online
+	measure '0113_Online Units Sold' = SUM(FactOnlineSales[SalesQuantity])
+		formatString: #,0
+		displayFolder: _Units
+		lineageTag: b64d5059-4245-4698-81c8-95a6ec0abe1a
+
+	/// Quantity variance percentage
+	measure '0401_Quantity Variance %' = IFERROR([0111_Quantity Variance] / [0112_Quantity Quota], 0)
+		formatString: 0.00%
+		displayFolder: _Units
+		lineageTag: 25fea28c-ab46-436a-9f53-96ff98cd5c29
+
+	/// Total sales revenue from all channels
+	measure '0501_Total Sales' = SUM(FactSales[SalesAmount])
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: 3e0e759f-0d3f-4d84-b8f8-a7bfbbcc0fa3
+
+	/// Total return amount
+	measure '0502_Total Returns' = SUM(FactSales[ReturnAmount])
+		formatString: $#,0.00
+		displayFolder: _Returns
+		lineageTag: 1ee62918-d0b7-435b-823c-128fd577583b
+
+	/// Total discount amount given
+	measure '0503_Total Discounts' = SUM(FactSales[DiscountAmount])
+		formatString: $#,0.00
+		displayFolder: _Discounts
+		lineageTag: 7a0cc059-87b9-439a-a222-9c6859f784e2
+
+	/// Total cost of goods sold
+	measure '0504_Total Cost' = SUM(FactSales[TotalCost])
+		formatString: $#,0.00
+		displayFolder: _Costs
+		lineageTag: 7c585d12-66de-4919-8a3f-d1cd1124f6d2
+
+	/// Budget vs actual from strategy plan
+	measure '0505_Strategy Plan Variance' = [0501_Total Sales] - [0506_Strategy Plan Amount]
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: 53bbc0f8-fc4f-49d9-9815-f142e4be0fb9
+
+	/// Strategic plan amount
+	measure '0506_Strategy Plan Amount' = SUM(FactStrategyPlanDaily[AmountDaily])
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: 2e8b9550-01ba-419f-882b-e1aff2b59ed0
+
+	/// Units sold in stores
+	measure '0507_Store Units Sold' = SUM(FactSales[SalesQuantity])
+		formatString: #,0
+		displayFolder: _Sales
+		lineageTag: 877bc4e3-518f-4c6a-bad7-b0288584a5fd
+
+	/// In-store sales revenue
+	measure '0508_Store Sales' = SUM(FactSales[SalesAmount])
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: f65efd65-2af7-44df-b4f0-b8f8756f24d1
+
+	/// Actual sales vs quota
+	measure '0510_Sales Variance' = [0501_Total Sales] - [0511_Sales Quota]
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: 8a9c05a7-82d9-4717-b7a5-befae7e59e03
+
+	/// Total sales quota amount
+	measure '0511_Sales Quota' = SUM(FactSalesQuotaDaily[SalesAmountQuotaDaily])
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: b4e960e6-b998-4d0c-8b76-3fcf35ecdd64
+
+	/// Online sales revenue
+	measure '0512_Online Sales' = CALCULATE(SUM(FactOnlineSales[SalesAmount]), FactSales[channelKey]=2)
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: 5d4a3567-3f9a-49b8-8128-4fb342ddd9f1
+
+	/// Gross profit (Revenue - COGS)
+	measure '0514_Gross Profit' = [0501_Total Sales] - [0504_Total Cost]
+		formatString: $#,0.00
+		displayFolder: _Gross Profit
+		lineageTag: 21634113-a668-4982-aa87-ab887591e9d0
+
+	/// Total gross margin quota
+	measure '0515_Gross Margin Quota' = SUM(FactSalesQuotaDaily[GrossMarginQuotaDaily])
+		formatString: $#,0.00
+		displayFolder: _Gross Profit
+		lineageTag: f0500bca-ec7a-44dd-a580-d742936a9a8d
+
+	/// Average value per transaction
+	measure '0601_Average Transaction Value' = IFERROR([0501_Total Sales] /COUNTA(FactSales[SalesKey]), 0)
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: 7e974fe5-86c5-4e97-9d81-82e705004e09
+
+	/// Average store sales
+	measure '0602_Average Sales per Store' = IFERROR([0508_Store Sales] / [0901_Store Count], 0)
+		formatString: $#,0.00
+		displayFolder: _Sales
+		lineageTag: 2ce82715-c418-4213-a1cc-ba3bb629f530
+
+	/// Sales variance as percentage
+	measure '0701_Sales Variance %' = IFERROR([0510_Sales Variance]/ [0511_Sales Quota], 0)
+		formatString: 0.00%
+		displayFolder: _Sales
+		lineageTag: 5e6c820e-0774-491d-a2d3-ead6cc86e92e
+
+	/// Percentage of sales quota achieved
+	measure '0703_Sales Achievement %' = IFERROR([0501_Total Sales] / [0511_Sales Quota], 0)
+		formatString: 0.00%
+		displayFolder: _Sales
+		lineageTag: 5ddfe0f9-6b1a-4ca0-a462-976d849fc13a
+
+	/// Online sales as percentage of total sales
+	measure '0704_Online Sales %' = IFERROR([0512_Online Sales] / [0501_Total Sales], 0)
+		formatString: 0.00%
+		displayFolder: _Sales
+		lineageTag: d88806f6-bbbe-4649-999f-5d25f1e466e8
+
+	/// Gross profit margin percentage
+	measure '0705_Gross Profit Margin %' = IFERROR([0514_Gross Profit] /[0501_Total Sales], 0)
+		formatString: 0.00%
+		displayFolder: _Gross Profit
+		lineageTag: f2542f90-7e50-4de7-8e34-b6e54dd4692a
+
+	/// Discount as percentage of total sales
+	measure '0710_Discount Rate %' = IFERROR([0503_Total Discounts]/ [0501_Total Sales], 0)
+		formatString: 0.00%
+		displayFolder: _Costs
+		lineageTag: 11517517-ad86-491e-b47d-6bbe6c7ad14f
+
+	/// Average sales per customer
+	measure '0711_Customer Lifetime Value' = IFERROR([0501_Total Sales] /[1301_Number of Customers], 0)
+		formatString: $#,0.00
+		displayFolder: _Customers
+		lineageTag: d3750f4b-900a-4534-8226-019db1287ec3
+
+	/// Maintenance cost per store
+	measure '0901_Maintenance Cost per Store' = IFERROR([0704_Machine - Total Maintenance Cost] / DISTINCTCOUNT(FactITSLA[StoreKey]), 0)
+		formatString: $#,0.00
+		displayFolder: _Costs
+		lineageTag: 69aefad3-4724-4860-ae16-5e07bb2b381c
+
+	/// Total number of stores
+	measure '0901_Store Count' = DISTINCTCOUNT(FactSales[StoreKey])
+		formatString: #,0
+		displayFolder: _Stores
+		lineageTag: bac63174-2770-4368-9c50-0c33a80ff0c4
+
+	/// Total machine downtime in hours
+	measure '1001_Total Machine Downtime (Hours)' = SUM(FactITSLA[DownTime]) / 60
+		formatString: #,0
+		displayFolder: _Machine
+		lineageTag: 33c52708-8011-4b9a-961c-18e9478ffc31
+
+	/// Preventive maintenance cost
+	measure '1002_Preventive Maintenance Cost' = CALCULATE(SUM(FactITMachine[CostAmount]), FactITMachine[CostType] = "Preventive")
+		formatString: $#,0.00
+		displayFolder: _Costs
+		lineageTag: 2d99cba6-940b-4c9c-bafd-e25e1f710314
+
+	/// Total planned downtime cost
+	measure '1003_Planned Downtime Cost' = COUNTROWS(VALUES(FactITMachine[CostType])) * SUM(FactITMachine[CostAmount]) / DISTINCTCOUNT(FactITMachine[CostType])
+		formatString: $#,0.00
+		displayFolder: _Costs
+		lineageTag: d48f471e-55ff-4c48-a116-4b958ef8b78b
+
+	/// Number of outage incidents
+	measure '1004_Number of Outages' = DISTINCTCOUNT(FactITSLA[OutageKey])
+		formatString: #,0
+		displayFolder: _Machine
+		lineageTag: 694010ef-6836-4853-bda2-0b219c99fb8a
+
+	/// Number of machines with downtime
+	measure '1005_Machines with Downtime' = DISTINCTCOUNT(FactITSLA[MachineKey])
+		formatString: #,0
+		displayFolder: _Machine
+		lineageTag: f8cd218e-58ed-481f-99ab-590ab1431a6e
+
+	/// Total machine maintenance cost
+	measure '1006_Machine Maintenance Cost' = SUM(FactITMachine[CostAmount])
+		formatString: $#,0.00
+		displayFolder: _Costs
+		lineageTag: ce7af2fd-187e-4fd5-9c79-1c4ce96ebaf1
+
+	/// Unplanned downtime cost
+	measure '1008_Emergency Maintenance Cost' = CALCULATE(SUM(FactITMachine[CostAmount]), FactITMachine[CostType] = "Emergency")
+		formatString: $#,0.00
+		displayFolder: _Costs
+		lineageTag: 6712887a-650e-459c-b2ad-875ff0357da6
+
+	/// Average downtime per machine
+	measure '1010_Average Downtime per Machine' = IFERROR([0700_Machine - Total Downtime (Hours)]/ [1005_Machines with Downtime], 0)
+		formatString: #,0.00
+		displayFolder: _Machine
+		lineageTag: a781d91d-7101-4700-ae08-080cbe51745e
+
+	/// Total number of products sold
+	measure '1201_Product Count' = DISTINCTCOUNT(FactSales[ProductKey])
+		formatString: #,0
+		displayFolder: _Units
+		lineageTag: 464100c0-3d03-412b-8507-7533a25cb5de
+
+	/// Total number of unique customers
+	measure '1301_Number of Customers' = DISTINCTCOUNT(FactOnlineSales[CustomerKey])
+		formatString: #,0
+		displayFolder: _Customers
+		lineageTag: 10e6ef39-6e6e-47ad-8a52-c17c4ff08731
 
 	partition _Measures = m
 		mode: import
