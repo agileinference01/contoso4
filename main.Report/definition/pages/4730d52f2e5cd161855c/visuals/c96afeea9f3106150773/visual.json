@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "c96afeea9f3106150773",
   "position": {
-    "x": 396.27906976744185,
-    "y": 424.18604651162792,
+    "x": 401.39020537124804,
+    "y": 192.10110584518168,
     "z": 5013,
-    "height": 254.88372093023256,
-    "width": 430.69767441860466,
+    "height": 480.25276461295419,
+    "width": 430.71090047393369,
     "tabOrder": 24
   },
   "visual": {
@@ -23,11 +23,40 @@
                       "Entity": "DimCalendar"
                     }
                   },
-                  "Property": "Interval Month Label"
+                  "Property": "Interval Week Label"
                 }
               },
-              "queryRef": "DimCalendar.Interval Month Label",
-              "nativeQueryRef": "Interval Month Label"
+              "queryRef": "DimCalendar.Interval Week Label",
+              "nativeQueryRef": "Weekly",
+              "displayName": "Weekly"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0009_Selected Measure Actual"
+                }
+              },
+              "queryRef": "_Measures.0009_Selected Measure Actual",
+              "nativeQueryRef": "0009_Selected Measure Actual"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0015_Selected Measure Goal Current Period"
+                }
+              },
+              "queryRef": "_Measures.0015_Selected Measure Goal Current Period",
+              "nativeQueryRef": "0015_Selected Measure Goal Current Period"
             },
             {
               "field": {
@@ -56,6 +85,51 @@
               },
               "queryRef": "_Measures.0016_Selected Measure Pct To Goal Current Period",
               "nativeQueryRef": "0016_Selected Measure Pct To Goal Current Period"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0017_Selected Measure Variance Arrow"
+                }
+              },
+              "queryRef": "_Measures.0017_Selected Measure Variance Arrow",
+              "nativeQueryRef": "0017_Selected Measure Variance Arrow"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0018_Selected Measure Variance Current Period"
+                }
+              },
+              "queryRef": "_Measures.0018_Selected Measure Variance Current Period",
+              "nativeQueryRef": "0018_Selected Measure Variance Current Period"
+            }
+          ],
+          "fieldParameters": [
+            {
+              "parameterExpr": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Interval Parameter"
+                    }
+                  },
+                  "Property": "Interval Parameter"
+                }
+              },
+              "index": 0,
+              "length": 1,
+              "sortDirection": "Descending"
             }
           ]
         }
@@ -70,7 +144,7 @@
                     "Entity": "DimCalendar"
                   }
                 },
-                "Property": "Interval Month Label"
+                "Property": "Interval Week Label"
               }
             },
             "direction": "Descending"
@@ -78,6 +152,72 @@
         ]
       }
     },
+    "objects": {
+      "values": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Measure": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "_Measures"
+                        }
+                      },
+                      "Property": "0017_Selected Measure Variance Color"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "_Measures.0016_Selected Measure Pct To Goal Current Period"
+          }
+        }
+      ]
+    },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "cb46d41cae16e041cd43",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "0012_Selected Measure Current Period"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "50fde15b73f813175ac4",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "0016_Selected Measure Pct To Goal Current Period"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

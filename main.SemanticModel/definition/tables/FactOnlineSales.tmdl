@@ -1,5 +1,4 @@
 table FactOnlineSales
-	excludeFromModelRefresh
 	lineageTag: 929dc686-2eb6-4b1d-ba4b-d8b126902237
 
 	column OnlineSalesKey

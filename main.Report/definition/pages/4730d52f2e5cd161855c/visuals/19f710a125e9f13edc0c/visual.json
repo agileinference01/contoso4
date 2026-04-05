@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "19f710a125e9f13edc0c",
   "position": {
-    "x": 94.883720930232556,
-    "y": 325.58139534883725,
+    "x": 95.0394944707741,
+    "y": 282.08530805687207,
     "z": 5010,
-    "height": 142.32558139534885,
-    "width": 260.46511627906978,
+    "height": 142.55924170616115,
+    "width": 259.84202211690365,
     "tabOrder": 21
   },
   "visual": {
@@ -62,8 +62,22 @@
                   "Property": "0009_Selected Measure Actual"
                 }
               },
-              "queryRef": "_Measures.0009_Selected Measure",
+              "queryRef": "_Measures.0009_Selected Measure Actual",
               "nativeQueryRef": "0009_Selected Measure Actual"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "0014_Selected Measure Goal"
+                }
+              },
+              "queryRef": "_Measures.0014_Selected Measure Goal",
+              "nativeQueryRef": "0014_Selected Measure Goal"
             }
           ]
         }
@@ -87,8 +101,49 @@
         "isDefaultSort": true
       }
     },
+    "objects": {
+      "valueAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "border": [
         {
           "properties": {
             "show": {
@@ -106,20 +161,6 @@
   },
   "filterConfig": {
     "filters": [
-      {
-        "name": "2aac1c1547f3646ac2f7",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "0009_Selected Measure Actual"
-          }
-        },
-        "type": "Advanced"
-      },
       {
         "name": "135c2e3d95fdc3cf3e1e",
         "field": {

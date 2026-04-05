@@ -174,3 +174,7 @@ relationship AutoDetected_a5f61a7c-bebc-4238-ac61-c9f2becd077a
 	fromColumn: FactSales.OnlineSalesKey
 	toColumn: FactOnlineSales.OnlineSalesKey
 
+relationship 6e56a3b4-a03f-f1f6-8f43-b64f0c0a559b
+	fromColumn: FactSalesQuota.DateKey
+	toColumn: DimCalendar.DateKey
+

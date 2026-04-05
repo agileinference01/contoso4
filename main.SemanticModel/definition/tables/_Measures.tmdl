@@ -6,7 +6,7 @@ table _Measures
 		displayFolder: _Sales
 		lineageTag: 16272a78-73be-429e-ad65-81f3163ddcea
 
-	measure '0101_Sales - Goal (FactSalesQuota)' = SUM(FactSalesQuota[SalesAmountQuota])
+	measure '0101_Sales - Goal (FactSalesQuota)' = CALCULATE(SUM(FactSalesQuota[SalesAmountQuota]), FactSalesQuota[ScenarioKey]=2)
 		formatString: $#,0.00
 		displayFolder: _Sales
 		lineageTag: 653dd41e-0a30-48ff-8806-0ce4e83c0f74
@@ -56,7 +56,7 @@ table _Measures
 		displayFolder: _Gross Profit
 		lineageTag: 50e4ecdd-2983-4ef1-9400-b60cb039437d
 
-	measure '0301_Gross Profit - Goal' = SUM(FactSalesQuota[GrossMarginQuota])
+	measure '0301_Gross Profit - Goal' = CALCULATE(SUM(FactSalesQuota[GrossMarginQuota]), FactSalesQuota[ScenarioKey]=2)
 		formatString: $#,0.00
 		displayFolder: _Gross Profit
 		lineageTag: 93777e3d-4337-4a05-91f9-79af8b6046a2
@@ -489,10 +489,39 @@ table _Measures
 			var _goal = [0015_Selected Measure Goal Current Period]
 			var _sel = SELECTEDVALUE(_MeasureCatalog[Metric Name])
 			RETURN
-			ActualPctToGoal(_actual, _goal)
+			ActualPctToGoal(_actual, _goal, _sel)
 		formatString: 0.00%;-0.00%;0.00%
 		displayFolder: _Non Measures
 		lineageTag: b9d15a2f-5d31-4cdb-b4a3-3f4678fa9628
+
+	measure '0017_Selected Measure Variance Color' =
+			
+			VAR _sel = SELECTEDVALUE(_MeasureCatalog[Metric Name])
+			RETURN
+			VarianceColor([0012_Selected Measure Current Period], [0015_Selected Measure Goal Current Period], _sel)
+		displayFolder: _Non Measures
+		lineageTag: 4588d358-0c58-40ef-95e4-7543009b227d
+
+	measure '0017_Selected Measure Variance Arrow' =
+			
+			VAR _sel = SELECTEDVALUE(_MeasureCatalog[Metric Name])
+			RETURN
+			VarianceArrow([0012_Selected Measure Current Period], [0015_Selected Measure Goal Current Period], _sel)
+		displayFolder: _Non Measures
+		lineageTag: b0349d95-3afb-4623-91fc-ffe21ecdab4c
+
+	measure '0018_Selected Measure Variance Current Period' =
+			
+			VAR _sel = SELECTEDVALUE(_MeasureCatalog[Metric Name])
+			RETURN
+			ActualVarToGoal([0012_Selected Measure Current Period], [0015_Selected Measure Goal Current Period])
+		displayFolder: _Non Measures
+		lineageTag: e42bf673-33f5-4a5d-9dd8-83d628ef4514
+
+		formatStringDefinition =
+				VAR _sel = SELECTEDVALUE(_MeasureCatalog[Metric Name])
+				RETURN
+				FormatMeasure(_sel)
 
 	partition _Measures = m
 		mode: import
