@@ -48,15 +48,34 @@ DEFINE
 			"#,000.00"
 		)
 
-	FUNCTION ActualPctToGoal = (_actual : NUMERIC, _goal : NUMERIC) =>
-		DIVIDE(_actual, _goal, BLANK())
+	FUNCTION ActualPctToGoal = (_actual : NUMERIC, _goal : NUMERIC, _measure: STRING) =>
+	VAR __direction = GetMeasureDirectionm(_measure)
+	RETURN
+	if(__direction="Positive",
+		DIVIDE(_actual, _goal, BLANK()),
+		2-DIVIDE(_actual, _goal, BLANK())
+	)
 
 	FUNCTION ActualVarToGoal = (_actual : NUMERIC, _goal : NUMERIC) =>
 		_actual - _goal
 	
-	FUNCTION VarianceArrow = (_var : NUMERIC, _dir : STRING) =>
+	FUNCTION VarianceArrow = (_actual : NUMERIC, _goal : NUMERIC, _measure : string) =>
+		var __dir = GetMeasureDirectionm(_measure)
+		var __var = ActualVarToGoal(_actual, _goal)
+		RETURN
 		SWITCH(TRUE(),
-			_var = 0, UNICHAR(9658),
-			_dir = "Positive" && _var > 0, UNICHAR(9650),
-			_dir = "Negative" && _var < 0, UNICHAR(9650),
+			__var = 0, UNICHAR(9658),
+			__dir = "Positive" && __var > 0, UNICHAR(9650),
+			__dir = "Negative" && __var < 0, UNICHAR(9650),
 			 UNICHAR(9660)
+		)
+
+	FUNCTION VarianceColor = (_actual : NUMERIC, _goal : NUMERIC, _measure : string) =>
+		// var __dir = GetMeasureDirectionm(_measure)
+		var __var = ActualPctToGoal(_actual, _goal, _measure)
+		RETURN
+		SWITCH(TRUE(),
+			__var >= .95 && __var < 1, "#b3b300",
+			__var <.95, "#990000",
+			"#009900"
+		)
